@@ -33,8 +33,8 @@ class _SignUpState extends State<SignUp> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const TopTitles(
-                  subtitle: "Welcome Back To E Commerce App",
+              TopTitles(
+                  subtitle: "Welcome Back To $appName",
                   title: "Create Account"),
               const SizedBox(
                 height: 46.0,
@@ -108,7 +108,7 @@ class _SignUpState extends State<SignUp> {
                       email.text, password.text, name.text, phone.text);
                   if (isVaildated) {
                     bool isLogined = await FirebaseAuthHelper.instance
-                        .signUp(name.text, email.text, password.text, context);
+                        .signUp(name.text, email.text, password.text, phone.text, context);
                     if (isLogined) {
                       Routes.instance.pushAndRemoveUntil(
                           widget: const CustomBottomBar(), context: context);

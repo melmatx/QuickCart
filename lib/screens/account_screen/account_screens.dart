@@ -95,7 +95,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         widget: const FavouriteScreen(), context: context);
                   },
                   leading: const Icon(Icons.favorite_outline),
-                  title: const Text("Favourite"),
+                  title: const Text("Wishlist"),
                 ),
                 ListTile(
                   onTap: () {
