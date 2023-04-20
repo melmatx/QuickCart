@@ -27,13 +27,13 @@ class FirebaseAuthHelper {
   }
 
   Future<bool> signUp(
-      String name, String email, String password, BuildContext context) async {
+      String name, String email, String password, String phone, BuildContext context) async {
     try {
       showLoaderDialog(context);
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
       UserModel userModel = UserModel(
-          id: userCredential.user!.uid, name: name, email: email, image: null);
+          id: userCredential.user!.uid, name: name, email: email, phone: phone, image: null);
 
       _firestore.collection("users").doc(userModel.id).set(userModel.toJson());
       Navigator.of(context,rootNavigator: true).pop();
