@@ -138,9 +138,10 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
                           Future.delayed(const Duration(seconds: 1), () {
                             appProvider.clearBuyProduct();
                             appProvider.clearCart();
-                            Routes.instance.push(
+                            Routes.instance.pushAndRemoveUntil(
                                 widget: const CustomBottomBar(),
-                                context: context);
+                                context: context,
+                                material: false);
                           });
                         }
                       } else {

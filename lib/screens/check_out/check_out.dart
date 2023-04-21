@@ -122,7 +122,7 @@ class _CheckoutState extends State<Checkout> {
                       setState(() {
                         _buttonClicked = true;
                       });
-                      
+
                       appProvider.clearBuyProduct();
                       appProvider.addBuyProduct(widget.singleProduct);
 
@@ -136,9 +136,10 @@ class _CheckoutState extends State<Checkout> {
                         if (value) {
                           Future.delayed(const Duration(seconds: 1), () {
                             appProvider.clearBuyProduct();
-                            Routes.instance.push(
+                            Routes.instance.pushAndRemoveUntil(
                                 widget: const CustomBottomBar(),
-                                context: context);
+                                context: context,
+                                material: false);
                           });
                         }
                       } else {

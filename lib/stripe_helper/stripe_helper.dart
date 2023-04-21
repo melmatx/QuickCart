@@ -54,8 +54,10 @@ class StripeHelper {
           Future.delayed(const Duration(seconds: 2), () {
             appProvider.clearBuyProduct();
             appProvider.clearCart();
-            Routes.instance
-                .push(widget: const CustomBottomBar(), context: context);
+            Routes.instance.pushAndRemoveUntil(
+                widget: const CustomBottomBar(),
+                context: context,
+                material: false);
           });
         }
       });
