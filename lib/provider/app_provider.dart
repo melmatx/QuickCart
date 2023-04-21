@@ -30,7 +30,6 @@ class AppProvider with ChangeNotifier {
       await FirebaseFirestoreHelper.instance.updateCartProductQtyInFirebase(
           existingProduct, existingProduct.qty!);
     } else {
-      productModel.qty = 1;
       _cartProductList.add(productModel);
       await FirebaseFirestoreHelper.instance
           .addCartProductToFirebase(productModel);

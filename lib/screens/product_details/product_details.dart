@@ -85,7 +85,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 children: [
                   CupertinoButton(
                     onPressed: () {
-                      if (qty >= 1) {
+                      if (qty > 1) {
                         setState(() {
                           qty--;
                         });
