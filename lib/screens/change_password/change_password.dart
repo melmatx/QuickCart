@@ -32,6 +32,9 @@ class _ChangePasswordState extends State<ChangePassword> {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         children: [
+          const SizedBox(
+            height: 20.0,
+          ),
           TextFormField(
             controller: newpassword,
             obscureText: isShowPassword,

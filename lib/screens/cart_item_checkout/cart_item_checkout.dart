@@ -31,7 +31,7 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: const Text(
-          "CartItemCheckout",
+          "Cart Checkout",
           style: TextStyle(
             color: Colors.black,
           ),
@@ -115,7 +115,7 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
               height: 24.0,
             ),
             PrimaryButton(
-              title: "Continues",
+              title: "Continue",
               onPressed: () async {
                 appProvider.clearBuyProduct();
                 appProvider.addBuyProductCartList();
@@ -127,7 +127,7 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
                           "Cash on delivery");
 
                   if (value) {
-                    Future.delayed(const Duration(seconds: 2), () {
+                    Future.delayed(const Duration(seconds: 1), () {
                       appProvider.clearBuyProduct();
                       appProvider.clearCart();
                       Routes.instance.push(
