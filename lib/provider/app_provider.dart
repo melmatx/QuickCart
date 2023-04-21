@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:quickcart/constants/constants.dart';
 import 'package:quickcart/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
@@ -21,10 +22,19 @@ class AppProvider with ChangeNotifier {
   UserModel get getUserInformation => _userModel!;
 
   void addCartProduct(ProductModel productModel) async {
-    _cartProductList.add(productModel);
+    ProductModel? existingProduct = _cartProductList
+        .firstWhereOrNull((element) => element.id == productModel.id);
 
-    await FirebaseFirestoreHelper.instance
-        .addCartProductToFirebase(productModel);
+    if (existingProduct != null) {
+      existingProduct.qty = existingProduct.qty! + 1;
+      await FirebaseFirestoreHelper.instance.updateCartProductQtyInFirebase(
+          existingProduct, existingProduct.qty!);
+    } else {
+      productModel.qty = 1;
+      _cartProductList.add(productModel);
+      await FirebaseFirestoreHelper.instance
+          .addCartProductToFirebase(productModel);
+    }
 
     notifyListeners();
   }
@@ -39,9 +49,10 @@ class AppProvider with ChangeNotifier {
   }
 
   void getCartProductsFromFirebase() async {
+    List<ProductModel> cartProducts =
+        await FirebaseFirestoreHelper.instance.getCartProducts();
     _cartProductList.clear();
-    _cartProductList
-        .addAll(await FirebaseFirestoreHelper.instance.getCartProducts());
+    _cartProductList.addAll(cartProducts);
     notifyListeners();
   }
 
@@ -69,9 +80,10 @@ class AppProvider with ChangeNotifier {
   }
 
   void getFavouriteListFirebase() async {
+    List<ProductModel> favoriteList =
+        await FirebaseFirestoreHelper.instance.getFavouriteProducts();
     _favouriteProductList.clear();
-    _favouriteProductList
-        .addAll(await FirebaseFirestoreHelper.instance.getFavouriteProducts());
+    _favouriteProductList.addAll(favoriteList);
     notifyListeners();
   }
 
