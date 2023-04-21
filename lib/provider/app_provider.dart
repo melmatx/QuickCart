@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:quickcart/constants/constants.dart';
+import 'package:quickcart/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 import 'package:quickcart/firebase_helper/firebase_firestore_helper/firebase_firestore.dart';
 import 'package:quickcart/firebase_helper/firebase_storage_helper/firebase_storage_helper.dart';
 import 'package:quickcart/models/product_model/product_model.dart';
@@ -77,6 +78,7 @@ class AppProvider with ChangeNotifier {
       Navigator.of(context, rootNavigator: true).pop();
       Navigator.of(context).pop();
     }
+    await FirebaseAuthHelper.instance.changeEmail(_userModel!.email, context);
     showMessage("Successfully updated profile");
 
     notifyListeners();
