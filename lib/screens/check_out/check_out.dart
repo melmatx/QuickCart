@@ -113,7 +113,7 @@ class _CheckoutState extends State<Checkout> {
               height: 24.0,
             ),
             PrimaryButton(
-              title: "Continues",
+              title: "Continue",
               onPressed: () async {
                 appProvider.clearBuyProduct();
                 appProvider.addBuyProduct(widget.singleProduct);
@@ -125,15 +125,14 @@ class _CheckoutState extends State<Checkout> {
                           context,
                           "Cash on delivery");
 
-                  appProvider.clearBuyProduct();
                   if (value) {
-                    Future.delayed(const Duration(seconds: 2), () {
+                    Future.delayed(const Duration(seconds: 1), () {
+                      appProvider.clearBuyProduct();
                       Routes.instance.push(
                           widget: const CustomBottomBar(), context: context);
                     });
                   }
                 } else {
-                 
                   int value = double.parse(
                           appProvider.totalPriceBuyProductList().toString())
                       .round()
