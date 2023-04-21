@@ -23,6 +23,9 @@ class _LoginState extends State<Login> {
   TextEditingController password = TextEditingController();
 
   bool isShowPassword = true;
+  int loginAttempts = 0;
+  bool isWaiting = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,8 +35,7 @@ class _LoginState extends State<Login> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TopTitles(
-                  subtitle: "Welcome Back To $appName", title: "Login"),
+              TopTitles(subtitle: "Welcome Back To $appName", title: "Login"),
               const SizedBox(
                 height: 46.0,
               ),
@@ -64,7 +66,7 @@ class _LoginState extends State<Login> {
                         });
                       },
                       padding: EdgeInsets.zero,
-                      child:  Icon(
+                      child: Icon(
                         isShowPassword
                             ? Icons.visibility
                             : Icons.visibility_off,
@@ -78,14 +80,48 @@ class _LoginState extends State<Login> {
               PrimaryButton(
                 title: "Login",
                 onPressed: () async {
+                  if (isWaiting) {
+                    showMessage("Please wait for 30 seconds");
+                    return;
+                  }
+
+                  if (loginAttempts >= 3) {
+                    setState(() {
+                      isWaiting = true;
+                    });
+                    await Future.delayed(const Duration(seconds: 30));
+                    setState(() {
+                      loginAttempts = 0;
+                      isWaiting = false;
+                    });
+                    return;
+                  }
+
                   bool isVaildated = loginVaildation(email.text, password.text);
-                  if (isVaildated) {
-                    bool isLogined = await FirebaseAuthHelper.instance
-                        .login(email.text, password.text, context);
-                    if (isLogined) {
-                      Routes.instance.pushAndRemoveUntil(
-                          widget: const CustomBottomBar(), context: context);
-                    }
+                  if (!isVaildated) return;
+
+                  bool isLogined = await FirebaseAuthHelper.instance
+                      .login(email.text, password.text, context);
+
+                  if (isLogined) {
+                    Routes.instance.pushAndRemoveUntil(
+                        widget: const CustomBottomBar(), context: context);
+                    return;
+                  }
+
+                  setState(() {
+                    loginAttempts += 1;
+                  });
+
+                  if (loginAttempts >= 3) {
+                    setState(() {
+                      isWaiting = true;
+                    });
+                    await Future.delayed(const Duration(seconds: 30));
+                    setState(() {
+                      loginAttempts = 0;
+                      isWaiting = false;
+                    });
                   }
                 },
               ),
