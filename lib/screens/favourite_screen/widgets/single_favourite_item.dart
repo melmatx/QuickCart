@@ -52,11 +52,8 @@ class _SingleFavouriteItemState extends State<SingleFavouriteItem> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ConstrainedBox(
-                              constraints: BoxConstraints(
-                                maxWidth:
-                                    MediaQuery.of(context).size.width * 0.4,
-                              ),
+                            SizedBox(
+                              width: 165,
                               child: Text(
                                 widget.singleProduct.name,
                                 style: const TextStyle(

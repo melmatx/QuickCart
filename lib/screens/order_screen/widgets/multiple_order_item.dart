@@ -19,7 +19,7 @@ class MultipleOrderItem extends StatelessWidget {
         textBaseline: TextBaseline.alphabetic,
         children: [
           Container(
-            height: 120,
+            height: 142,
             width: 120,
             color: Theme.of(context).primaryColor.withOpacity(0.5),
             child: Image.network(
@@ -31,10 +31,14 @@ class MultipleOrderItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "${orderModel.products[0].name} and ${orderModel.products.length - 1} more...",
-                  style: const TextStyle(
-                    fontSize: 12.0,
+                SizedBox(
+                  width: 185,
+                  child: Text(
+                    "${orderModel.products[0].name} and ${orderModel.products.length - 1} more...",
+                    style: const TextStyle(
+                      fontSize: 12.0,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 const SizedBox(
@@ -66,6 +70,15 @@ class MultipleOrderItem extends StatelessWidget {
                 ),
                 Text(
                   "Order Status: ${orderModel.status}",
+                  style: const TextStyle(
+                    fontSize: 12.0,
+                  ),
+                ),
+                const SizedBox(
+                  height: 12.0,
+                ),
+                Text(
+                  "Date: ${orderModel.createdAt.toDate().toString().substring(0, 10)}",
                   style: const TextStyle(
                     fontSize: 12.0,
                   ),

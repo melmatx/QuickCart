@@ -63,17 +63,13 @@ class _SingleCartItemState extends State<SingleCartItem> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ConstrainedBox(
-                              constraints: BoxConstraints(
-                                maxWidth:
-                                    MediaQuery.of(context).size.width * 0.4,
-                              ),
+                            SizedBox(
+                              width: 165,
                               child: Text(
                                 widget.singleProduct.name,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
-                                maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),

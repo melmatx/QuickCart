@@ -20,7 +20,7 @@ class SingleOrderItem extends StatelessWidget {
             textBaseline: TextBaseline.alphabetic,
             children: [
               Container(
-                height: 120,
+                height: 142,
                 width: 120,
                 color: Theme.of(context).primaryColor.withOpacity(0.5),
                 child: Image.network(
@@ -32,10 +32,13 @@ class SingleOrderItem extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      orderModel.products[0].name,
-                      style: const TextStyle(
-                        fontSize: 12.0,
+                    SizedBox(
+                      width: 195,
+                      child: Text(
+                        orderModel.products[0].name,
+                        style: const TextStyle(
+                          fontSize: 12.0,
+                        ),
                       ),
                     ),
                     const SizedBox(
@@ -71,81 +74,19 @@ class SingleOrderItem extends StatelessWidget {
                         fontSize: 12.0,
                       ),
                     ),
+                    const SizedBox(
+                      height: 12.0,
+                    ),
+                    Text(
+                      "Date: ${orderModel.createdAt.toDate().toString().substring(0, 10)}",
+                      style: const TextStyle(
+                        fontSize: 12.0,
+                      ),
+                    ),
                   ],
                 ),
               ),
             ],
-          ),
-          Visibility(
-            visible: orderModel.products.length > 1,
-            child: Column(
-              children: [
-                const Text("Details"),
-                Divider(color: Theme.of(context).primaryColor),
-                ...orderModel.products.map((singleProduct) {
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 12.0, top: 6.0),
-                    child: Column(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.baseline,
-                          textBaseline: TextBaseline.alphabetic,
-                          children: [
-                            Container(
-                              height: 80,
-                              width: 80,
-                              color: Theme.of(context)
-                                  .primaryColor
-                                  .withOpacity(0.5),
-                              child: Image.network(
-                                singleProduct.image,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    singleProduct.name,
-                                    style: const TextStyle(
-                                      fontSize: 12.0,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 12.0,
-                                  ),
-                                  Column(
-                                    children: [
-                                      Text(
-                                        "Quanity: ${singleProduct.qty.toString()}",
-                                        style: const TextStyle(
-                                          fontSize: 12.0,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 12.0,
-                                      ),
-                                    ],
-                                  ),
-                                  Text(
-                                    "Price: ${singleProduct.price.toString()}",
-                                    style: const TextStyle(
-                                      fontSize: 12.0,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        Divider(color: Theme.of(context).primaryColor),
-                      ],
-                    ),
-                  );
-                }).toList(),
-              ],
-            ),
           ),
         ],
       ),
