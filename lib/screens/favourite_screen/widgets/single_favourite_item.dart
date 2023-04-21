@@ -52,11 +52,19 @@ class _SingleFavouriteItemState extends State<SingleFavouriteItem> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              widget.singleProduct.name,
-                              style: const TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
+                            ConstrainedBox(
+                              constraints: BoxConstraints(
+                                maxWidth:
+                                    MediaQuery.of(context).size.width * 0.4,
+                              ),
+                              child: Text(
+                                widget.singleProduct.name,
+                                style: const TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                             CupertinoButton(
@@ -65,8 +73,8 @@ class _SingleFavouriteItemState extends State<SingleFavouriteItem> {
                                 AppProvider appProvider =
                                     Provider.of<AppProvider>(context,
                                         listen: false);
-                                appProvider
-                                    .removeFavouriteProduct(widget.singleProduct);
+                                appProvider.removeFavouriteProduct(
+                                    widget.singleProduct);
                                 showMessage("Removed to wishlist");
                               },
                               child: const Text(
@@ -79,11 +87,13 @@ class _SingleFavouriteItemState extends State<SingleFavouriteItem> {
                             ),
                           ],
                         ),
-                        Text(
-                          "\$${widget.singleProduct.price.toString()}",
-                          style: const TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
+                        Flexible(
+                          child: Text(
+                            "\$${widget.singleProduct.price.toString()}",
+                            style: const TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],
