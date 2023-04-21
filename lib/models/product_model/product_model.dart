@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 ProductModel productModelFromJson(String str) =>
     ProductModel.fromJson(json.decode(str));
 
@@ -13,6 +15,7 @@ class ProductModel {
       required this.price,
       required this.description,
       required this.isFavourite,
+      required this.dateAdded,
       this.qty});
 
   String image;
@@ -23,6 +26,7 @@ class ProductModel {
   String description;
 
   int? qty;
+  Timestamp? dateAdded;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
         id: json["id"],
@@ -31,6 +35,7 @@ class ProductModel {
         image: json["image"],
         isFavourite: false,
         qty: json["qty"],
+        dateAdded: json["dateAdded"],
         price: double.parse(json["price"].toString()),
       );
 
@@ -41,10 +46,12 @@ class ProductModel {
         "description": description,
         "isFavourite": isFavourite,
         "price": price,
-        "qty": qty
+        "qty": qty,
+        "dateAdded": dateAdded,
       };
   ProductModel copyWith({
     int? qty,
+    Timestamp? dateAdded,
   }) =>
       ProductModel(
         id: id,
@@ -54,5 +61,6 @@ class ProductModel {
         isFavourite: isFavourite,
         qty: qty ?? this.qty,
         price: price,
+        dateAdded: dateAdded ?? this.dateAdded,
       );
 }

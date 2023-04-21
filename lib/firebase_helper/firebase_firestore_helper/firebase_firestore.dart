@@ -98,6 +98,7 @@ class FirebaseFirestoreHelper {
         "totalPrice": totalPrice,
         "payment": payment,
         "orderId": admin.id,
+        "createdAt": FieldValue.serverTimestamp(),
       });
       documentReference.set({
         "products": list.map((e) => e.toJson()),
@@ -105,6 +106,7 @@ class FirebaseFirestoreHelper {
         "totalPrice": totalPrice,
         "payment": payment,
         "orderId": documentReference.id,
+        "createdAt": FieldValue.serverTimestamp(),
       });
       Navigator.of(context, rootNavigator: true).pop();
       showMessage("Ordered Successfully");
@@ -125,6 +127,7 @@ class FirebaseFirestoreHelper {
               .collection("users")
               .doc(FirebaseAuth.instance.currentUser!.uid)
               .collection("orders")
+              .orderBy("createdAt", descending: true)
               .get();
 
       List<OrderModel> orderList = querySnapshot.docs
@@ -157,7 +160,7 @@ class FirebaseFirestoreHelper {
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection("favourites")
           .doc(productModel.id)
-          .set(productModel.toJson());
+          .set(productModel.copyWith(dateAdded: Timestamp.now()).toJson());
     } catch (e) {
       showMessage(e.toString());
     }
@@ -184,6 +187,7 @@ class FirebaseFirestoreHelper {
               .collection("users")
               .doc(FirebaseAuth.instance.currentUser!.uid)
               .collection("favourites")
+              .orderBy("dateAdded", descending: false)
               .get();
 
       List<ProductModel> favouriteProductsList = querySnapshot.docs
@@ -204,7 +208,7 @@ class FirebaseFirestoreHelper {
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection("cart")
           .doc(productModel.id)
-          .set(productModel.toJson());
+          .set(productModel.copyWith(dateAdded: Timestamp.now()).toJson());
     } catch (e) {
       showMessage(e.toString());
     }
@@ -230,6 +234,7 @@ class FirebaseFirestoreHelper {
               .collection("users")
               .doc(FirebaseAuth.instance.currentUser!.uid)
               .collection("cart")
+              .orderBy("dateAdded", descending: false)
               .get();
 
       List<ProductModel> cartProductsList = querySnapshot.docs
@@ -252,23 +257,6 @@ class FirebaseFirestoreHelper {
           .collection("cart")
           .doc(productModel.id)
           .update({"qty": qty});
-    } catch (e) {
-      showMessage(e.toString());
-    }
-  }
-
-  Future<void> clearCartInFirebase() async {
-    try {
-      QuerySnapshot<Map<String, dynamic>> querySnapshot =
-          await _firebaseFirestore
-              .collection("users")
-              .doc(FirebaseAuth.instance.currentUser!.uid)
-              .collection("cart")
-              .get();
-
-      for (var doc in querySnapshot.docs) {
-        await doc.reference.delete();
-      }
     } catch (e) {
       showMessage(e.toString());
     }
