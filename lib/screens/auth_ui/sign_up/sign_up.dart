@@ -19,11 +19,12 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   bool isShowPassword = true;
-   TextEditingController password = TextEditingController();
+  TextEditingController password = TextEditingController();
   TextEditingController email = TextEditingController();
- 
   TextEditingController name = TextEditingController();
   TextEditingController phone = TextEditingController();
+  TextEditingController address = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,6 +79,17 @@ class _SignUpState extends State<SignUp> {
                 height: 12.0,
               ),
               TextFormField(
+                controller: address,
+                keyboardType: TextInputType.streetAddress,
+                decoration: const InputDecoration(
+                  hintText: "Address",
+                  prefixIcon: Icon(Icons.place_outlined),
+                ),
+              ),
+              const SizedBox(
+                height: 12.0,
+              ),
+              TextFormField(
                 controller: password,
                 obscureText: isShowPassword,
                 decoration: InputDecoration(
@@ -105,10 +117,15 @@ class _SignUpState extends State<SignUp> {
                 title: "Create an account",
                 onPressed: () async {
                   bool isVaildated = signUpVaildation(
-                      email.text, password.text, name.text, phone.text);
+                      email.text, password.text, name.text, phone.text, address.text);
                   if (isVaildated) {
-                    bool isLogined = await FirebaseAuthHelper.instance
-                        .signUp(name.text, email.text, password.text, phone.text, context);
+                    bool isLogined = await FirebaseAuthHelper.instance.signUp(
+                        name.text,
+                        email.text,
+                        password.text,
+                        phone.text,
+                        address.text,
+                        context);
                     if (isLogined) {
                       Routes.instance.pushAndRemoveUntil(
                           widget: const CustomBottomBar(), context: context);

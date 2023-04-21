@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:quickcart/constants/constants.dart';
 import 'package:quickcart/models/user_model/user_model.dart';
 import 'package:quickcart/widgets/primary_button/primary_button.dart';
 
@@ -28,7 +29,11 @@ class _EditProfileState extends State<EditProfile> {
     }
   }
 
-  TextEditingController textEditingController = TextEditingController();
+  TextEditingController name = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController phone = TextEditingController();
+  TextEditingController address = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     AppProvider appProvider = Provider.of<AppProvider>(
@@ -68,9 +73,39 @@ class _EditProfileState extends State<EditProfile> {
             height: 12.0,
           ),
           TextFormField(
-            controller: textEditingController,
+            controller: name,
             decoration: InputDecoration(
               hintText: appProvider.getUserInformation.name,
+            ),
+          ),
+          const SizedBox(
+            height: 24.0,
+          ),
+          TextFormField(
+            controller: email,
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              hintText: appProvider.getUserInformation.email,
+            ),
+          ),
+          const SizedBox(
+            height: 24.0,
+          ),
+          TextFormField(
+            controller: phone,
+            keyboardType: TextInputType.phone,
+            decoration: InputDecoration(
+              hintText: appProvider.getUserInformation.phone,
+            ),
+          ),
+          const SizedBox(
+            height: 24.0,
+          ),
+          TextFormField(
+            controller: address,
+            keyboardType: TextInputType.streetAddress,
+            decoration: InputDecoration(
+              hintText: appProvider.getUserInformation.address,
             ),
           ),
           const SizedBox(
@@ -79,10 +114,28 @@ class _EditProfileState extends State<EditProfile> {
           PrimaryButton(
             title: "Update",
             onPressed: () async {
-              UserModel userModel = appProvider.getUserInformation
-                  .copyWith(name: textEditingController.text);
-              appProvider.updateUserInfoFirebase(context, userModel, image);
-            
+              bool isVaildated = editProfileValidation(
+                  name: name.text,
+                  email: email.text,
+                  phone: phone.text,
+                  address: address.text
+              );
+              if (isVaildated || image != null) {
+                UserModel userModel = appProvider.getUserInformation.copyWith(
+                    name: name.text.isEmpty
+                        ? appProvider.getUserInformation.name
+                        : name.text,
+                    email: email.text.isEmpty
+                        ? appProvider.getUserInformation.email
+                        : email.text,
+                    phone: phone.text.isEmpty
+                        ? appProvider.getUserInformation.phone
+                        : phone.text,
+                    address: address.text.isEmpty
+                        ? appProvider.getUserInformation.address
+                        : address.text);
+                appProvider.updateUserInfoFirebase(context, userModel, image);
+              }
             },
           ),
         ],

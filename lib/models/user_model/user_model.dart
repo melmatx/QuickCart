@@ -11,12 +11,14 @@ class UserModel {
     required this.name,
     required this.email,
     required this.phone,
+    required this.address,
   });
 
   String? image;
   String name;
   String email;
   String phone;
+  String address;
 
   String id;
 
@@ -26,6 +28,7 @@ class UserModel {
         email: json["email"],
         name: json["name"],
         phone: json["phone"],
+        address: json["address"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -34,17 +37,22 @@ class UserModel {
         "name": name,
         "email": email,
         "phone": phone,
+        "address": address,
       };
 
   UserModel copyWith({
     String? name,
+    String? email,
+    String? phone,
+    String? address,
     image,
   }) =>
       UserModel(
         id: id,
         name: name ?? this.name,
-        email: email,
+        email: email ?? this.email,
         image: image ?? this.image,
-        phone: phone,
+        phone: phone ?? this.phone,
+        address: address ?? this.address,
       );
 }

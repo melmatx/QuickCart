@@ -93,8 +93,12 @@ bool loginVaildation(String email, String password) {
 }
 
 bool signUpVaildation(
-    String email, String password, String name, String phone) {
-  if (email.isEmpty && password.isEmpty && name.isEmpty && phone.isEmpty) {
+    String email, String password, String name, String phone, String address) {
+  if (email.isEmpty &&
+      password.isEmpty &&
+      name.isEmpty &&
+      phone.isEmpty &&
+      address.isEmpty) {
     showMessage("All Fields are empty");
     return false;
   } else if (name.isEmpty) {
@@ -109,7 +113,40 @@ bool signUpVaildation(
   } else if (password.isEmpty) {
     showMessage("Password is Empty");
     return false;
+  } else if (address.isEmpty) {
+    showMessage("Address is Empty");
+    return false;
   } else {
     return true;
   }
+}
+
+bool editProfileValidation({String? email, String? password, String? name, String? phone, String? address}) {
+  bool isEmailEmpty = email == null || email.isEmpty;
+  bool isNameEmpty = name == null || name.isEmpty;
+  bool isPhoneEmpty = phone == null || phone.isEmpty;
+  bool isAddressEmpty = address == null || address.isEmpty;
+
+  if (isEmailEmpty && isNameEmpty && isPhoneEmpty && isAddressEmpty) {
+    showMessage("All Fields are empty");
+    return false;
+  }
+
+  if (email != null && !isEmailEmpty) {
+    return true;
+  }
+
+  if (name != null && !isNameEmpty) {
+    return true;
+  }
+
+  if (phone != null && !isPhoneEmpty) {
+    return true;
+  }
+
+  if (address != null && !isAddressEmpty) {
+    return true;
+  }
+
+  return false;
 }
