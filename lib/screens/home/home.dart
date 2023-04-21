@@ -26,6 +26,8 @@ class _HomeState extends State<Home> {
   void initState() {
     AppProvider appProvider = Provider.of<AppProvider>(context, listen: false);
     appProvider.getUserInfoFirebase();
+    appProvider.getCartProductsFromFirebase();
+    appProvider.getFavouriteListFirebase();
     getCategoryList();
     super.initState();
   }

@@ -13,7 +13,7 @@ import 'package:quickcart/models/user_model/user_model.dart';
 class FirebaseFirestoreHelper {
   static FirebaseFirestoreHelper instance = FirebaseFirestoreHelper();
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
-  
+
   Future<List<CategoryModel>> getCategories() async {
     try {
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
@@ -89,7 +89,8 @@ class FirebaseFirestoreHelper {
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection("orders")
           .doc();
-      DocumentReference admin = _firebaseFirestore.collection("usersOrders").doc();
+      DocumentReference admin =
+          _firebaseFirestore.collection("usersOrders").doc();
 
       admin.set({
         "products": list.map((e) => e.toJson()),
@@ -146,6 +147,130 @@ class FirebaseFirestoreHelper {
           .update({
         "notificationToken": token,
       });
+    }
+  }
+
+  Future<void> addFavouriteProductToFirebase(ProductModel productModel) async {
+    try {
+      await _firebaseFirestore
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("favourites")
+          .doc(productModel.id)
+          .set(productModel.toJson());
+    } catch (e) {
+      showMessage(e.toString());
+    }
+  }
+
+  Future<void> removeFavouriteProductFromFirebase(
+      ProductModel productModel) async {
+    try {
+      await _firebaseFirestore
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("favourites")
+          .doc(productModel.id)
+          .delete();
+    } catch (e) {
+      showMessage(e.toString());
+    }
+  }
+
+  Future<List<ProductModel>> getFavouriteProducts() async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await _firebaseFirestore
+              .collection("users")
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .collection("favourites")
+              .get();
+
+      List<ProductModel> favouriteProductsList = querySnapshot.docs
+          .map((e) => ProductModel.fromJson(e.data()))
+          .toList();
+
+      return favouriteProductsList;
+    } catch (e) {
+      showMessage(e.toString());
+      return [];
+    }
+  }
+
+  Future<void> addCartProductToFirebase(ProductModel productModel) async {
+    try {
+      await _firebaseFirestore
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("cart")
+          .doc(productModel.id)
+          .set(productModel.toJson());
+    } catch (e) {
+      showMessage(e.toString());
+    }
+  }
+
+  Future<void> removeCartProductFromFirebase(ProductModel productModel) async {
+    try {
+      await _firebaseFirestore
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("cart")
+          .doc(productModel.id)
+          .delete();
+    } catch (e) {
+      showMessage(e.toString());
+    }
+  }
+
+  Future<List<ProductModel>> getCartProducts() async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await _firebaseFirestore
+              .collection("users")
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .collection("cart")
+              .get();
+
+      List<ProductModel> cartProductsList = querySnapshot.docs
+          .map((e) => ProductModel.fromJson(e.data()))
+          .toList();
+
+      return cartProductsList;
+    } catch (e) {
+      showMessage(e.toString());
+      return [];
+    }
+  }
+
+  Future<void> updateCartProductQtyInFirebase(
+      ProductModel productModel, int qty) async {
+    try {
+      await _firebaseFirestore
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("cart")
+          .doc(productModel.id)
+          .update({"qty": qty});
+    } catch (e) {
+      showMessage(e.toString());
+    }
+  }
+
+  Future<void> clearCartInFirebase() async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await _firebaseFirestore
+              .collection("users")
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .collection("cart")
+              .get();
+
+      for (var doc in querySnapshot.docs) {
+        await doc.reference.delete();
+      }
+    } catch (e) {
+      showMessage(e.toString());
     }
   }
 }

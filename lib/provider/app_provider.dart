@@ -20,13 +20,28 @@ class AppProvider with ChangeNotifier {
 
   UserModel get getUserInformation => _userModel!;
 
-  void addCartProduct(ProductModel productModel) {
+  void addCartProduct(ProductModel productModel) async {
     _cartProductList.add(productModel);
+
+    await FirebaseFirestoreHelper.instance
+        .addCartProductToFirebase(productModel);
+
     notifyListeners();
   }
 
-  void removeCartProduct(ProductModel productModel) {
+  void removeCartProduct(ProductModel productModel) async {
     _cartProductList.remove(productModel);
+
+    await FirebaseFirestoreHelper.instance
+        .removeCartProductFromFirebase(productModel);
+
+    notifyListeners();
+  }
+
+  void getCartProductsFromFirebase() async {
+    _cartProductList.clear();
+    _cartProductList
+        .addAll(await FirebaseFirestoreHelper.instance.getCartProducts());
     notifyListeners();
   }
 
@@ -35,13 +50,28 @@ class AppProvider with ChangeNotifier {
   ///// Favourite ///////
   final List<ProductModel> _favouriteProductList = [];
 
-  void addFavouriteProduct(ProductModel productModel) {
+  void addFavouriteProduct(ProductModel productModel) async {
     _favouriteProductList.add(productModel);
+
+    await FirebaseFirestoreHelper.instance
+        .addFavouriteProductToFirebase(productModel);
+
     notifyListeners();
   }
 
-  void removeFavouriteProduct(ProductModel productModel) {
+  void removeFavouriteProduct(ProductModel productModel) async {
     _favouriteProductList.remove(productModel);
+
+    await FirebaseFirestoreHelper.instance
+        .removeFavouriteProductFromFirebase(productModel);
+
+    notifyListeners();
+  }
+
+  void getFavouriteListFirebase() async {
+    _favouriteProductList.clear();
+    _favouriteProductList
+        .addAll(await FirebaseFirestoreHelper.instance.getFavouriteProducts());
     notifyListeners();
   }
 
@@ -83,6 +113,21 @@ class AppProvider with ChangeNotifier {
 
     notifyListeners();
   }
+
+  void removeProfilePictureFirebase(BuildContext context) async {
+    showLoaderDialog(context);
+    await FirebaseStorageHelper.instance.removeUserImage();
+    _userModel = _userModel!.copyWith(image: "");
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(_userModel!.id)
+        .set(_userModel!.toJson());
+    Navigator.of(context, rootNavigator: true).pop();
+    Navigator.of(context).pop();
+    showMessage("Successfully removed profile picture");
+    notifyListeners();
+  }
+
   //////// TOTAL PRICE / // / // / / // / / / // /
 
   double totalPrice() {
@@ -104,6 +149,10 @@ class AppProvider with ChangeNotifier {
   void updateQty(ProductModel productModel, int qty) {
     int index = _cartProductList.indexOf(productModel);
     _cartProductList[index].qty = qty;
+
+    FirebaseFirestoreHelper.instance
+        .updateCartProductQtyInFirebase(productModel, qty);
+
     notifyListeners();
   }
   ///////// BUY Product  / / // / / // / / / // /
@@ -120,6 +169,9 @@ class AppProvider with ChangeNotifier {
 
   void clearCart() {
     _cartProductList.clear();
+
+    FirebaseFirestoreHelper.instance.clearCartInFirebase();
+
     notifyListeners();
   }
 
