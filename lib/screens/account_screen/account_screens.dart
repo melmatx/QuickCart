@@ -43,7 +43,7 @@ class _AccountScreenState extends State<AccountScreen> {
               height: 260,
               child: Column(
                 children: [
-                  appProvider.getUserInformation.image == null
+                  appProvider.getUserInformation.image == null || appProvider.getUserInformation.image!.isEmpty
                       ? const Icon(
                           Icons.person_outline,
                           size: 120,

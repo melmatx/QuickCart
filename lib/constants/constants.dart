@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -121,32 +123,25 @@ bool signUpVaildation(
   }
 }
 
-bool editProfileValidation({String? email, String? password, String? name, String? phone, String? address}) {
+bool editProfileValidation(
+    {String? email,
+    String? password,
+    String? name,
+    String? phone,
+    String? address,
+    File? image}) {
   bool isEmailEmpty = email == null || email.isEmpty;
   bool isNameEmpty = name == null || name.isEmpty;
   bool isPhoneEmpty = phone == null || phone.isEmpty;
   bool isAddressEmpty = address == null || address.isEmpty;
 
-  if (isEmailEmpty && isNameEmpty && isPhoneEmpty && isAddressEmpty) {
-    showMessage("All Fields are empty");
+  if (isEmailEmpty &&
+      isNameEmpty &&
+      isPhoneEmpty &&
+      isAddressEmpty &&
+      image == null) {
     return false;
   }
 
-  if (email != null && !isEmailEmpty) {
-    return true;
-  }
-
-  if (name != null && !isNameEmpty) {
-    return true;
-  }
-
-  if (phone != null && !isPhoneEmpty) {
-    return true;
-  }
-
-  if (address != null && !isAddressEmpty) {
-    return true;
-  }
-
-  return false;
+  return true;
 }

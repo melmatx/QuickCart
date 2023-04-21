@@ -19,12 +19,15 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   File? image;
+  final ValueNotifier<bool> _isValid = ValueNotifier<bool>(false);
+
   void takePicture() async {
     XFile? value = await ImagePicker()
         .pickImage(source: ImageSource.gallery, imageQuality: 40);
     if (value != null) {
       setState(() {
         image = File(value.path);
+        validateInputs();
       });
     }
   }
@@ -33,6 +36,34 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController email = TextEditingController();
   TextEditingController phone = TextEditingController();
   TextEditingController address = TextEditingController();
+
+  void validateInputs() {
+    _isValid.value = editProfileValidation(
+        name: name.text,
+        email: email.text,
+        phone: phone.text,
+        address: address.text,
+        image: image);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    name.addListener(validateInputs);
+    email.addListener(validateInputs);
+    phone.addListener(validateInputs);
+    address.addListener(validateInputs);
+  }
+
+  @override
+  void dispose() {
+    name.dispose();
+    email.dispose();
+    phone.dispose();
+    address.dispose();
+    _isValid.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,32 +142,45 @@ class _EditProfileState extends State<EditProfile> {
           const SizedBox(
             height: 24.0,
           ),
-          PrimaryButton(
-            title: "Update",
-            onPressed: () async {
-              bool isVaildated = editProfileValidation(
-                  name: name.text,
-                  email: email.text,
-                  phone: phone.text,
-                  address: address.text
+          ValueListenableBuilder<bool>(
+            valueListenable: _isValid,
+            builder: (context, isValid, _) {
+              return PrimaryButton(
+                title: "Update",
+                onPressed: isValid
+                    ? () async {
+                        UserModel userModel = appProvider.getUserInformation
+                            .copyWith(
+                                name: name.text.isEmpty
+                                    ? appProvider.getUserInformation.name
+                                    : name.text,
+                                email: email.text.isEmpty
+                                    ? appProvider.getUserInformation.email
+                                    : email.text,
+                                phone: phone.text.isEmpty
+                                    ? appProvider.getUserInformation.phone
+                                    : phone.text,
+                                address: address.text.isEmpty
+                                    ? appProvider.getUserInformation.address
+                                    : address.text);
+                        appProvider.updateUserInfoFirebase(
+                            context, userModel, image);
+                      }
+                    : null,
               );
-              if (isVaildated || image != null) {
-                UserModel userModel = appProvider.getUserInformation.copyWith(
-                    name: name.text.isEmpty
-                        ? appProvider.getUserInformation.name
-                        : name.text,
-                    email: email.text.isEmpty
-                        ? appProvider.getUserInformation.email
-                        : email.text,
-                    phone: phone.text.isEmpty
-                        ? appProvider.getUserInformation.phone
-                        : phone.text,
-                    address: address.text.isEmpty
-                        ? appProvider.getUserInformation.address
-                        : address.text);
-                appProvider.updateUserInfoFirebase(context, userModel, image);
-              }
             },
+          ),
+          const SizedBox(
+            height: 24.0,
+          ),
+          PrimaryButton(
+            title: "Remove Profile Picture",
+            onPressed: appProvider.getUserInformation.image != null &&
+                    appProvider.getUserInformation.image!.isNotEmpty
+                ? () async {
+                    appProvider.removeProfilePictureFirebase(context);
+                  }
+                : null,
           ),
         ],
       ),
