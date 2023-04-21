@@ -21,6 +21,8 @@ class CartItemCheckout extends StatefulWidget {
 
 class _CartItemCheckoutState extends State<CartItemCheckout> {
   int groupValue = 1;
+  bool _buttonClicked = false;
+
   @override
   Widget build(BuildContext context) {
     AppProvider appProvider = Provider.of<AppProvider>(
@@ -116,34 +118,42 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
             ),
             PrimaryButton(
               title: "Continue",
-              onPressed: () async {
-                appProvider.clearBuyProduct();
-                appProvider.addBuyProductCartList();
-                if (groupValue == 1) {
-                  bool value = await FirebaseFirestoreHelper.instance
-                      .uploadOrderedProductFirebase(
-                          appProvider.getBuyProductList,
-                          context,
-                          "Cash on delivery");
+              onPressed: _buttonClicked
+                  ? null
+                  : () async {
+                      setState(() {
+                        _buttonClicked = true;
+                      });
 
-                  if (value) {
-                    Future.delayed(const Duration(seconds: 1), () {
                       appProvider.clearBuyProduct();
-                      appProvider.clearCart();
-                      Routes.instance.push(
-                          widget: const CustomBottomBar(), context: context);
-                    });
-                  }
-                } else {
-                  int value = double.parse(
-                          appProvider.totalPriceBuyProductList().toString())
-                      .round()
-                      .toInt();
-                  String totalPrice = (value * 100).toString();
-                  await StripeHelper.instance
-                      .makePayment(totalPrice.toString(), context);
-                }
-              },
+                      appProvider.addBuyProductCartList();
+                      if (groupValue == 1) {
+                        bool value = await FirebaseFirestoreHelper.instance
+                            .uploadOrderedProductFirebase(
+                                appProvider.getBuyProductList,
+                                context,
+                                "Cash on delivery");
+
+                        if (value) {
+                          Future.delayed(const Duration(seconds: 1), () {
+                            appProvider.clearBuyProduct();
+                            appProvider.clearCart();
+                            Routes.instance.push(
+                                widget: const CustomBottomBar(),
+                                context: context);
+                          });
+                        }
+                      } else {
+                        int value = double.parse(appProvider
+                                .totalPriceBuyProductList()
+                                .toString())
+                            .round()
+                            .toInt();
+                        String totalPrice = (value * 100).toString();
+                        await StripeHelper.instance
+                            .makePayment(totalPrice.toString(), context);
+                      }
+                    },
             )
           ],
         ),
