@@ -180,11 +180,11 @@ class AppProvider with ChangeNotifier {
   }
 
   void clearCart() {
-    _cartProductList.clear();
+    List<ProductModel> cartListCopy = List.from(_cartProductList);
 
-    FirebaseFirestoreHelper.instance.clearCartInFirebase();
-
-    notifyListeners();
+    for (ProductModel productModel in cartListCopy) {
+      removeCartProduct(productModel);
+    }
   }
 
   void clearBuyProduct() {
