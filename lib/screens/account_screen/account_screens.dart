@@ -36,102 +36,111 @@ class _AccountScreenState extends State<AccountScreen> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Column(
-              children: [
-                appProvider.getUserInformation.image == null
-                    ? const Icon(
-                        Icons.person_outline,
-                        size: 120,
-                      )
-                    : CircleAvatar(
-                        backgroundImage:
-                            NetworkImage(appProvider.getUserInformation.image!),
-                        radius: 60,
-                      ),
-                Text(
-                  appProvider.getUserInformation.name,
-                  style: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 260,
+              child: Column(
+                children: [
+                  appProvider.getUserInformation.image == null
+                      ? const Icon(
+                          Icons.person_outline,
+                          size: 120,
+                        )
+                      : CircleAvatar(
+                          backgroundImage:
+                              NetworkImage(appProvider.getUserInformation.image!),
+                          radius: 60,
+                        ),
+                  const SizedBox(
+                    height: 12.0,
                   ),
-                ),
-                Text(
-                  appProvider.getUserInformation.email,
-                ),
-                const SizedBox(
-                  height: 12.0,
-                ),
-                SizedBox(
-                  width: 130,
-                  child: PrimaryButton(
-                    title: "Edit Profile",
-                    onPressed: () {
+                  Text(
+                    appProvider.getUserInformation.name,
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 3.0,
+                  ),
+                  Text(
+                    appProvider.getUserInformation.email,
+                  ),
+                  const SizedBox(
+                    height: 12.0,
+                  ),
+                  SizedBox(
+                    width: 130,
+                    child: PrimaryButton(
+                      title: "Edit Profile",
+                      onPressed: () {
+                        Routes.instance
+                            .push(widget: const EditProfile(), context: context);
+                      },
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 350,
+              child: Column(
+                children: [
+                  ListTile(
+                    onTap: () {
                       Routes.instance
-                          .push(widget: const EditProfile(), context: context);
+                          .push(widget: const OrderScreen(), context: context);
                     },
+                    leading: const Icon(Icons.shopping_bag_outlined),
+                    title: const Text("Your Orders"),
                   ),
-                )
-              ],
+                  ListTile(
+                    onTap: () {
+                      Routes.instance.push(
+                          widget: const FavouriteScreen(), context: context);
+                    },
+                    leading: const Icon(Icons.favorite_outline),
+                    title: const Text("Wishlist"),
+                  ),
+                  ListTile(
+                    onTap: () {
+                      Routes.instance
+                          .push(widget: const AboutUs(), context: context);
+                    },
+                    leading: const Icon(Icons.info_outline),
+                    title: const Text("About us"),
+                  ),
+                  ListTile(
+                    onTap: () {
+                      Routes.instance
+                          .push(widget: const ChangePassword(), context: context);
+                    },
+                    leading: const Icon(Icons.change_circle_outlined),
+                    title: const Text("Change Password"),
+                  ),
+                  ListTile(
+                    onTap: () {
+                      FirebaseAuthHelper.instance.signOut();
+      
+                      setState(() {
+                        Routes.instance.pushAndRemoveUntil(widget: const Welcome(), context: context, routeNav: true);
+                      });
+                    },
+                    leading: const Icon(Icons.exit_to_app),
+                    title: const Text("Log out"),
+                  ),
+                  const SizedBox(
+                    height: 12.0,
+                  ),
+                  const Text("Version 1.0.0")
+                ],
+              ),
             ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Column(
-              children: [
-                ListTile(
-                  onTap: () {
-                    Routes.instance
-                        .push(widget: const OrderScreen(), context: context);
-                  },
-                  leading: const Icon(Icons.shopping_bag_outlined),
-                  title: const Text("Your Orders"),
-                ),
-                ListTile(
-                  onTap: () {
-                    Routes.instance.push(
-                        widget: const FavouriteScreen(), context: context);
-                  },
-                  leading: const Icon(Icons.favorite_outline),
-                  title: const Text("Wishlist"),
-                ),
-                ListTile(
-                  onTap: () {
-                    Routes.instance
-                        .push(widget: const AboutUs(), context: context);
-                  },
-                  leading: const Icon(Icons.info_outline),
-                  title: const Text("About us"),
-                ),
-                ListTile(
-                  onTap: () {
-                    Routes.instance
-                        .push(widget: const ChangePassword(), context: context);
-                  },
-                  leading: const Icon(Icons.change_circle_outlined),
-                  title: const Text("Change Password"),
-                ),
-                ListTile(
-                  onTap: () {
-                    FirebaseAuthHelper.instance.signOut();
-
-                    setState(() {
-                      Routes.instance.pushAndRemoveUntil(widget: const Welcome(), context: context, routeNav: true);
-                    });
-                  },
-                  leading: const Icon(Icons.exit_to_app),
-                  title: const Text("Log out"),
-                ),
-                const SizedBox(
-                  height: 12.0,
-                ),
-                const Text("Version 1.0.0")
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
