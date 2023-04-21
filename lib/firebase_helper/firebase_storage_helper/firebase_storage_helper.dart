@@ -13,4 +13,9 @@ class FirebaseStorageHelper {
     String imageUrl = await taskSnapshot.ref.getDownloadURL();
     return imageUrl;
   }
+
+  Future<void> removeUserImage() async {
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+    await _storage.ref(userId).delete();
+  }
 }
