@@ -12,6 +12,7 @@ class DefaultFirebaseConfig {
         projectId: 'quickcart-5ade3',
         messagingSenderId: '536335012908',
         iosBundleId: 'com.example.quickcart',
+        storageBucket: 'quickcart-5ade3.appspot.com',
       );
     } else {
       // Android
