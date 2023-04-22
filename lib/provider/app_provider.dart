@@ -39,13 +39,10 @@ class AppProvider with ChangeNotifier {
   }
 
   void removeCartProduct(ProductModel productModel) async {
-    ProductModel existingProduct =
-        _cartProductList.firstWhere((element) => element.id == productModel.id);
-
-    _cartProductList.remove(existingProduct);
+    _cartProductList.remove(productModel);
 
     await FirebaseFirestoreHelper.instance
-        .removeCartProductFromFirebase(existingProduct);
+        .removeCartProductFromFirebase(productModel);
 
     notifyListeners();
   }
@@ -58,6 +55,11 @@ class AppProvider with ChangeNotifier {
         .updateCartProductQtyInFirebase(productModel, qty);
 
     notifyListeners();
+  }
+
+  int getQty(ProductModel productModel) {
+    int index = _cartProductList.indexOf(productModel);
+    return _cartProductList[index].qty!;
   }
 
   void getCartProductsFromFirebase() async {
