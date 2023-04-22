@@ -26,7 +26,7 @@ class AppProvider with ChangeNotifier {
         .firstWhereOrNull((element) => element.id == productModel.id);
 
     if (existingProduct != null) {
-      existingProduct.qty = existingProduct.qty! + 1;
+      existingProduct.qty = existingProduct.qty! + productModel.qty!;
       await FirebaseFirestoreHelper.instance.updateCartProductQtyInFirebase(
           existingProduct, existingProduct.qty!);
     } else {
@@ -39,10 +39,23 @@ class AppProvider with ChangeNotifier {
   }
 
   void removeCartProduct(ProductModel productModel) async {
-    _cartProductList.remove(productModel);
+    ProductModel existingProduct =
+        _cartProductList.firstWhere((element) => element.id == productModel.id);
+
+    _cartProductList.remove(existingProduct);
 
     await FirebaseFirestoreHelper.instance
-        .removeCartProductFromFirebase(productModel);
+        .removeCartProductFromFirebase(existingProduct);
+
+    notifyListeners();
+  }
+
+  void updateQty(ProductModel productModel, int qty) {
+    int index = _cartProductList.indexOf(productModel);
+    _cartProductList[index].qty = qty;
+
+    FirebaseFirestoreHelper.instance
+        .updateCartProductQtyInFirebase(productModel, qty);
 
     notifyListeners();
   }
@@ -70,7 +83,10 @@ class AppProvider with ChangeNotifier {
   }
 
   void removeFavouriteProduct(ProductModel productModel) async {
-    _favouriteProductList.remove(productModel);
+    ProductModel existingProduct = _favouriteProductList
+        .firstWhere((element) => element.id == productModel.id);
+
+    _favouriteProductList.remove(existingProduct);
 
     await FirebaseFirestoreHelper.instance
         .removeFavouriteProductFromFirebase(productModel);
@@ -157,15 +173,6 @@ class AppProvider with ChangeNotifier {
     return totalPrice;
   }
 
-  void updateQty(ProductModel productModel, int qty) {
-    int index = _cartProductList.indexOf(productModel);
-    _cartProductList[index].qty = qty;
-
-    FirebaseFirestoreHelper.instance
-        .updateCartProductQtyInFirebase(productModel, qty);
-
-    notifyListeners();
-  }
   ///////// BUY Product  / / // / / // / / / // /
 
   void addBuyProduct(ProductModel model) {
