@@ -28,6 +28,8 @@ class _SingleCartItemState extends State<SingleCartItem> {
     AppProvider appProvider = Provider.of<AppProvider>(
       context,
     );
+    widget.singleProduct.isFavourite = appProvider.getFavouriteProductList
+        .any((element) => element.id == widget.singleProduct.id);
     return Container(
       margin: const EdgeInsets.only(bottom: 12.0),
       decoration: BoxDecoration(
@@ -121,8 +123,7 @@ class _SingleCartItemState extends State<SingleCartItem> {
                             CupertinoButton(
                               padding: EdgeInsets.zero,
                               onPressed: () {
-                                if (!appProvider.getFavouriteProductList
-                                    .contains(widget.singleProduct)) {
+                                if (!widget.singleProduct.isFavourite) {
                                   appProvider.addFavouriteProduct(
                                       widget.singleProduct);
                                   showMessage("Added to wishlist");
@@ -132,9 +133,7 @@ class _SingleCartItemState extends State<SingleCartItem> {
                                   showMessage("Removed to wishlist");
                                 }
                               },
-                              child: Text(
-                                appProvider.getFavouriteProductList
-                                        .contains(widget.singleProduct)
+                              child: Text(widget.singleProduct.isFavourite
                                     ? "Remove to wishlist"
                                     : "Add to wishlist",
                                 style: const TextStyle(

@@ -24,6 +24,8 @@ class _ProductDetailsState extends State<ProductDetails> {
     AppProvider appProvider = Provider.of<AppProvider>(
       context,
     );
+    widget.singleProduct.isFavourite = appProvider.getFavouriteProductList
+        .any((element) => element.id == widget.singleProduct.id);
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -70,8 +72,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             .removeFavouriteProduct(widget.singleProduct);
                       }
                     },
-                    icon: Icon(appProvider.getFavouriteProductList
-                            .contains(widget.singleProduct)
+                    icon: Icon(widget.singleProduct.isFavourite
                         ? Icons.favorite
                         : Icons.favorite_border),
                   ),
@@ -79,9 +80,10 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
               Text(widget.singleProduct.description),
               const SizedBox(
-                height: 12.00,
+                height: 30.00,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CupertinoButton(
                     onPressed: () {
