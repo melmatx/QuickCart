@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quickcart/constants/constants.dart';
 import 'package:quickcart/constants/routes.dart';
 import 'package:quickcart/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
@@ -81,6 +82,7 @@ class _LoginState extends State<Login> {
                 title: "Login",
                 onPressed: () async {
                   if (isWaiting) {
+                    Fluttertoast.cancel();
                     showMessage("Please wait for 30 seconds");
                     return;
                   }

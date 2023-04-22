@@ -80,6 +80,7 @@ String getMessageFromErrorCode(String errorCode) {
 }
 
 bool loginVaildation(String email, String password) {
+  Fluttertoast.cancel();
   if (email.isEmpty && password.isEmpty) {
     showMessage("Both Fields are empty");
     return false;
@@ -96,6 +97,7 @@ bool loginVaildation(String email, String password) {
 
 bool signUpVaildation(
     String email, String password, String name, String phone, String address) {
+  Fluttertoast.cancel();
   if (email.isEmpty &&
       password.isEmpty &&
       name.isEmpty &&
