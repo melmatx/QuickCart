@@ -83,23 +83,47 @@ class _EditProfileState extends State<EditProfile> {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         children: [
-          image == null
-              ? CupertinoButton(
-                  onPressed: () {
-                    takePicture();
-                  },
-                  child: const CircleAvatar(
-                      radius: 55, child: Icon(Icons.camera_alt)),
-                )
-              : CupertinoButton(
-                  onPressed: () {
-                    takePicture();
-                  },
-                  child: CircleAvatar(
+          CupertinoButton(
+            onPressed: () {
+              takePicture();
+            },
+            padding: EdgeInsets.zero,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                if (image != null)
+                  CircleAvatar(
                     backgroundImage: FileImage(image!),
                     radius: 55,
+                  )
+                else if (appProvider.getUserInformation.image != null &&
+                    appProvider.getUserInformation.image!.isNotEmpty)
+                  CircleAvatar(
+                    backgroundImage:
+                        NetworkImage(appProvider.getUserInformation.image!),
+                    radius: 55,
                   ),
-                ),
+                if (image == null &&
+                    (appProvider.getUserInformation.image == null ||
+                        appProvider.getUserInformation.image!.isEmpty))
+                  const Opacity(
+                    opacity: 1,
+                    child: CircleAvatar(
+                      radius: 55,
+                      child: Icon(Icons.camera_alt),
+                    ),
+                  )
+                else
+                  const Opacity(
+                    opacity: 0.8,
+                    child: CircleAvatar(
+                      radius: 55,
+                      child: Icon(Icons.camera_alt),
+                    ),
+                  )
+              ],
+            ),
+          ),
           const SizedBox(
             height: 12.0,
           ),
