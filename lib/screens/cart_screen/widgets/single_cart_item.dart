@@ -15,19 +15,12 @@ class SingleCartItem extends StatefulWidget {
 }
 
 class _SingleCartItemState extends State<SingleCartItem> {
-  int qty = 1;
-  @override
-  void initState() {
-    qty = widget.singleProduct.qty ?? 1;
-    setState(() {});
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     AppProvider appProvider = Provider.of<AppProvider>(
       context,
     );
+    int qty = appProvider.getQty(widget.singleProduct);
     widget.singleProduct.isFavourite = appProvider.getFavouriteProductList
         .any((element) => element.id == widget.singleProduct.id);
     return Container(
@@ -133,7 +126,8 @@ class _SingleCartItemState extends State<SingleCartItem> {
                                   showMessage("Removed to wishlist");
                                 }
                               },
-                              child: Text(widget.singleProduct.isFavourite
+                              child: Text(
+                                widget.singleProduct.isFavourite
                                     ? "Remove to wishlist"
                                     : "Add to wishlist",
                                 style: const TextStyle(
