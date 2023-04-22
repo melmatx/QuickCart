@@ -21,7 +21,7 @@ class CartItemCheckout extends StatefulWidget {
 
 class _CartItemCheckoutState extends State<CartItemCheckout> {
   int groupValue = 1;
-  bool _buttonClicked = false;
+  bool buttonClicked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -118,11 +118,11 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
             ),
             PrimaryButton(
               title: "Continue",
-              onPressed: _buttonClicked
+              onPressed: buttonClicked
                   ? null
                   : () async {
                       setState(() {
-                        _buttonClicked = true;
+                        buttonClicked = true;
                       });
 
                       appProvider.clearBuyProduct();
@@ -152,7 +152,12 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
                             .toInt();
                         String totalPrice = (value * 100).toString();
                         await StripeHelper.instance
-                            .makePayment(totalPrice.toString(), context);
+                            .makePayment(totalPrice.toString(), context,
+                                onPaymentResult: (isButtonClicked) {
+                          setState(() {
+                            buttonClicked = isButtonClicked;
+                          });
+                        });
                       }
                     },
             )

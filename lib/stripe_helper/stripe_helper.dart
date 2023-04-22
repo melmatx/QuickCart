@@ -17,7 +17,8 @@ class StripeHelper {
   static StripeHelper instance = StripeHelper();
 
   Map<String, dynamic>? paymentIntent;
-  Future<void> makePayment(String amount, BuildContext context) async {
+  Future<void> makePayment(String amount, BuildContext context,
+      {required void Function(bool) onPaymentResult}) async {
     try {
       paymentIntent = await createPaymentIntent(amount, 'USD');
 
@@ -36,13 +37,14 @@ class StripeHelper {
           .then((value) {});
 
       //STEP 3: Display Payment sheet
-      displayPaymentSheet(context);
+      displayPaymentSheet(context, onPaymentResult: onPaymentResult);
     } catch (err) {
       showMessage("Payment failed");
     }
   }
 
-  displayPaymentSheet(BuildContext context) async {
+  displayPaymentSheet(BuildContext context,
+      {required void Function(bool) onPaymentResult}) async {
     AppProvider appProvider = Provider.of<AppProvider>(context, listen: false);
     try {
       await Stripe.instance.presentPaymentSheet().then((value) async {
@@ -51,6 +53,7 @@ class StripeHelper {
                 appProvider.getBuyProductList, context, "Paid");
 
         if (value) {
+          onPaymentResult(true);
           Future.delayed(const Duration(seconds: 2), () {
             appProvider.clearBuyProduct();
             appProvider.clearCart();
@@ -63,6 +66,7 @@ class StripeHelper {
       });
     } catch (e) {
       showMessage("Payment cancelled!");
+      onPaymentResult(false);
     }
   }
 
