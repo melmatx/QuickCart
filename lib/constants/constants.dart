@@ -45,6 +45,36 @@ showLoaderDialog(BuildContext context) {
   );
 }
 
+Future<bool> showConfirmationDialog({
+  required BuildContext context,
+  required String title,
+  required String content,
+  String confirmText = 'Confirm',
+  String cancelText = 'Cancel',
+}) async {
+  final result = await showDialog<bool>(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(title),
+        content: Text(content),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(cancelText),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(confirmText),
+          ),
+        ],
+      );
+    },
+  );
+  return result ?? false;
+}
+
 String getMessageFromErrorCode(String errorCode) {
   switch (errorCode) {
     case "ERROR_EMAIL_ALREADY_IN_USE":

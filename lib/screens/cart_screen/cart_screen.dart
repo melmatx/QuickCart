@@ -75,11 +75,18 @@ class _CartScreenState extends State<CartScreen> {
         actions: [
           appProvider.getCartProductList.isNotEmpty
               ? IconButton(
-                  onPressed: () {
-                    setState(() {
-                      appProvider.clearCartProductsFromFirebase();
-                      showMessage("Cart Cleared!");
-                    });
+                  onPressed: () async {
+                    bool result = await showConfirmationDialog(
+                      context: context,
+                      title: 'Clear Cart',
+                      content: 'Are you sure you want to clear all cart items?',
+                    );
+                    if (result) {
+                      setState(() {
+                        appProvider.clearCartProductsFromFirebase();
+                        showMessage("Cart Cleared!");
+                      });
+                    }
                   },
                   icon: const Icon(Icons.delete_sweep),
                 )

@@ -31,11 +31,19 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
         actions: [
           appProvider.getFavouriteProductList.isNotEmpty
               ? IconButton(
-                  onPressed: () {
-                    setState(() {
-                      appProvider.clearFavouriteListFirebase();
-                      showMessage("Wishlist cleared!");
-                    });
+                  onPressed: () async {
+                    bool result = await showConfirmationDialog(
+                      context: context,
+                      title: 'Clear Wishlist',
+                      content:
+                          'Are you sure you want to clear all wishlist items?',
+                    );
+                    if (result) {
+                      setState(() {
+                        appProvider.clearFavouriteListFirebase();
+                        showMessage("Wishlist cleared!");
+                      });
+                    }
                   },
                   icon: const Icon(Icons.delete_sweep),
                 )

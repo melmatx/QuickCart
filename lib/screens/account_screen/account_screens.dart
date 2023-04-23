@@ -10,6 +10,7 @@ import 'package:quickcart/screens/favourite_screen/favourite_screen.dart';
 import 'package:quickcart/screens/order_screen/order_screen.dart';
 import 'package:quickcart/widgets/primary_button/primary_button.dart';
 
+import '../../constants/constants.dart';
 import '../../provider/app_provider.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -47,14 +48,15 @@ class _AccountScreenState extends State<AccountScreen> {
                   const SizedBox(
                     height: 12.0,
                   ),
-                  appProvider.getUserInformation.image == null || appProvider.getUserInformation.image!.isEmpty
+                  appProvider.getUserInformation.image == null ||
+                          appProvider.getUserInformation.image!.isEmpty
                       ? const Icon(
                           Icons.person_outline,
                           size: 120,
                         )
                       : CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(appProvider.getUserInformation.image!),
+                          backgroundImage: NetworkImage(
+                              appProvider.getUserInformation.image!),
                           radius: 60,
                         ),
                   const SizedBox(
@@ -81,8 +83,8 @@ class _AccountScreenState extends State<AccountScreen> {
                     child: PrimaryButton(
                       title: "Edit Profile",
                       onPressed: () {
-                        Routes.instance
-                            .push(widget: const EditProfile(), context: context);
+                        Routes.instance.push(
+                            widget: const EditProfile(), context: context);
                       },
                     ),
                   )
@@ -122,19 +124,30 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                   ListTile(
                     onTap: () {
-                      Routes.instance
-                          .push(widget: const ChangePassword(), context: context);
+                      Routes.instance.push(
+                          widget: const ChangePassword(), context: context);
                     },
                     leading: const Icon(Icons.change_circle_outlined),
                     title: const Text("Change Password"),
                   ),
                   ListTile(
-                    onTap: () {
-                      FirebaseAuthHelper.instance.signOut();
-      
-                      setState(() {
-                        Routes.instance.pushAndRemoveUntil(widget: const Welcome(), context: context, routeNav: true);
-                      });
+                    onTap: () async {
+                      bool result = await showConfirmationDialog(
+                        context: context,
+                        title: 'Log out',
+                        content: 'Are you sure you want to log out?',
+                      );
+
+                      if (result) {
+                        FirebaseAuthHelper.instance.signOut();
+
+                        setState(() {
+                          Routes.instance.pushAndRemoveUntil(
+                              widget: const Welcome(),
+                              context: context,
+                              routeNav: true);
+                        });
+                      }
                     },
                     leading: const Icon(Icons.exit_to_app),
                     title: const Text("Log out"),
