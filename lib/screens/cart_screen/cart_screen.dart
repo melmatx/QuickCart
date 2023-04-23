@@ -81,7 +81,7 @@ class _CartScreenState extends State<CartScreen> {
                       showMessage("Cart Cleared!");
                     });
                   },
-                  icon: const Icon(Icons.delete_sweep_sharp),
+                  icon: const Icon(Icons.delete_sweep),
                 )
               : const IconButton(
                   onPressed: null, icon: Icon(Icons.delete_sweep_outlined))

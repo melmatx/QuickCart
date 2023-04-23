@@ -37,7 +37,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                       showMessage("Wishlist cleared!");
                     });
                   },
-                  icon: const Icon(Icons.delete_sweep_sharp),
+                  icon: const Icon(Icons.delete_sweep),
                 )
               : const IconButton(
                   onPressed: null, icon: Icon(Icons.delete_sweep_outlined))
