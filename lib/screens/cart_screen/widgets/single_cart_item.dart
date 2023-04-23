@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -138,11 +139,15 @@ class _SingleCartItemState extends State<SingleCartItem> {
                             ),
                           ],
                         ),
-                        Text(
-                          "\$${widget.singleProduct.price.toString()}",
-                          style: const TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
+                        SizedBox(
+                          width: 55,
+                          child: AutoSizeText(
+                            "\$${widget.singleProduct.price.toString()}",
+                            style: const TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            maxLines: 1,
                           ),
                         ),
                       ],
