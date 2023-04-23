@@ -137,7 +137,7 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
                         if (value) {
                           Future.delayed(const Duration(seconds: 1), () {
                             appProvider.clearBuyProduct();
-                            appProvider.clearCart();
+                            appProvider.clearCartProductsFromFirebase();
                             Routes.instance.pushAndRemoveUntil(
                                 widget: const CustomBottomBar(),
                                 context: context,

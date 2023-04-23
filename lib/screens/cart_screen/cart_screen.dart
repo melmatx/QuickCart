@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quickcart/constants/constants.dart';
 import 'package:quickcart/screens/cart_item_checkout/cart_item_checkout.dart';
 import 'package:quickcart/screens/cart_screen/widgets/single_cart_item.dart';
 
@@ -64,7 +65,6 @@ class _CartScreenState extends State<CartScreen> {
         ),
       ),
       appBar: AppBar(
-        centerTitle: true,
         // backgroundColor: Colo,
         title: const Text(
           "Cart Screen",
@@ -72,6 +72,20 @@ class _CartScreenState extends State<CartScreen> {
             color: Colors.black,
           ),
         ),
+        actions: [
+          appProvider.getCartProductList.isNotEmpty
+              ? IconButton(
+                  onPressed: () {
+                    setState(() {
+                      appProvider.clearCartProductsFromFirebase();
+                      showMessage("Cart Cleared!");
+                    });
+                  },
+                  icon: const Icon(Icons.delete_sweep_sharp),
+                )
+              : const IconButton(
+                  onPressed: null, icon: Icon(Icons.delete_sweep_outlined))
+        ],
       ),
       body: appProvider.getCartProductList.isEmpty
           ? const Center(

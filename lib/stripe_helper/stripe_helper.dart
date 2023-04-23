@@ -56,7 +56,7 @@ class StripeHelper {
           onPaymentResult(true);
           Future.delayed(const Duration(seconds: 2), () {
             appProvider.clearBuyProduct();
-            appProvider.clearCart();
+            appProvider.clearCartProductsFromFirebase();
             Routes.instance.pushAndRemoveUntil(
                 widget: const CustomBottomBar(),
                 context: context,

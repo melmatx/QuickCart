@@ -39,10 +39,15 @@ class AppProvider with ChangeNotifier {
   }
 
   void removeCartProduct(ProductModel productModel) async {
-    _cartProductList.remove(productModel);
+    ProductModel? existingProduct = _cartProductList
+        .firstWhereOrNull((element) => element.id == productModel.id);
 
-    await FirebaseFirestoreHelper.instance
-        .removeCartProductFromFirebase(productModel);
+    if (existingProduct != null) {
+      _cartProductList.remove(existingProduct);
+
+      await FirebaseFirestoreHelper.instance
+          .removeCartProductFromFirebase(existingProduct);
+    }
 
     notifyListeners();
   }
@@ -68,6 +73,14 @@ class AppProvider with ChangeNotifier {
     _cartProductList.clear();
     _cartProductList.addAll(cartProducts);
     notifyListeners();
+  }
+
+  void clearCartProductsFromFirebase() {
+    List<ProductModel> cartListCopy = List.from(_cartProductList);
+
+    for (ProductModel productModel in cartListCopy) {
+      removeCartProduct(productModel);
+    }
   }
 
   List<ProductModel> get getCartProductList => _cartProductList;
@@ -102,6 +115,14 @@ class AppProvider with ChangeNotifier {
     _favouriteProductList.clear();
     _favouriteProductList.addAll(favoriteList);
     notifyListeners();
+  }
+
+  void clearFavouriteListFirebase() {
+    List<ProductModel> favoriteListCopy = List.from(_favouriteProductList);
+
+    for (ProductModel productModel in favoriteListCopy) {
+      removeFavouriteProduct(productModel);
+    }
   }
 
   List<ProductModel> get getFavouriteProductList => _favouriteProductList;
@@ -185,14 +206,6 @@ class AppProvider with ChangeNotifier {
   void addBuyProductCartList() {
     _buyProductList.addAll(_cartProductList);
     notifyListeners();
-  }
-
-  void clearCart() {
-    List<ProductModel> cartListCopy = List.from(_cartProductList);
-
-    for (ProductModel productModel in cartListCopy) {
-      removeCartProduct(productModel);
-    }
   }
 
   void clearBuyProduct() {
