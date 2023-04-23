@@ -17,6 +17,7 @@ class SingleFavouriteItem extends StatefulWidget {
 class _SingleFavouriteItemState extends State<SingleFavouriteItem> {
   @override
   Widget build(BuildContext context) {
+    AppProvider appProvider = Provider.of<AppProvider>(context, listen: false);
     return Container(
       margin: const EdgeInsets.only(bottom: 12.0),
       decoration: BoxDecoration(
@@ -77,6 +78,33 @@ class _SingleFavouriteItemState extends State<SingleFavouriteItem> {
                               child: const Text(
                                 "Remove to wishlist",
                                 style: TextStyle(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            CupertinoButton(
+                              padding: EdgeInsets.zero,
+                              onPressed: () {
+                                if (!appProvider.getCartProductList.any(
+                                    (element) =>
+                                        element.id ==
+                                        widget.singleProduct.id)) {
+                                  appProvider
+                                      .addCartProduct(widget.singleProduct.copyWith(qty: 1));
+                                  showMessage("Added to Cart");
+                                } else {
+                                  appProvider
+                                      .removeCartProduct(widget.singleProduct);
+                                  showMessage("Removed to Cart");
+                                }
+                              },
+                              child: Text(
+                                appProvider.getCartProductList.any((element) =>
+                                        element.id == widget.singleProduct.id)
+                                    ? "Remove to Cart"
+                                    : "Add to Cart",
+                                style: const TextStyle(
                                   fontSize: 12.0,
                                   fontWeight: FontWeight.bold,
                                 ),
