@@ -28,6 +28,7 @@ class _AccountScreenState extends State<AccountScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.white,
         title: const Text(
           "My Account",
@@ -43,6 +44,9 @@ class _AccountScreenState extends State<AccountScreen> {
               height: 260,
               child: Column(
                 children: [
+                  const SizedBox(
+                    height: 12.0,
+                  ),
                   appProvider.getUserInformation.image == null || appProvider.getUserInformation.image!.isEmpty
                       ? const Icon(
                           Icons.person_outline,
@@ -84,6 +88,9 @@ class _AccountScreenState extends State<AccountScreen> {
                   )
                 ],
               ),
+            ),
+            const SizedBox(
+              height: 6.0,
             ),
             SizedBox(
               height: 350,
