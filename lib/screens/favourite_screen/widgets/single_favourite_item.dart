@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +31,7 @@ class _SingleFavouriteItemState extends State<SingleFavouriteItem> {
         children: [
           Expanded(
             child: Container(
+              padding: const EdgeInsets.all(6),
               height: 140,
               color: Theme.of(context).primaryColor.withOpacity(0.5),
               child: Image.network(
@@ -65,23 +67,8 @@ class _SingleFavouriteItemState extends State<SingleFavouriteItem> {
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            CupertinoButton(
-                              padding: EdgeInsets.zero,
-                              onPressed: () {
-                                AppProvider appProvider =
-                                    Provider.of<AppProvider>(context,
-                                        listen: false);
-                                appProvider.removeFavouriteProduct(
-                                    widget.singleProduct);
-                                showMessage("Removed to wishlist");
-                              },
-                              child: const Text(
-                                "Remove to wishlist",
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                            const SizedBox(
+                              height: 6.0,
                             ),
                             CupertinoButton(
                               padding: EdgeInsets.zero,
@@ -90,8 +77,8 @@ class _SingleFavouriteItemState extends State<SingleFavouriteItem> {
                                     (element) =>
                                         element.id ==
                                         widget.singleProduct.id)) {
-                                  appProvider
-                                      .addCartProduct(widget.singleProduct.copyWith(qty: 1));
+                                  appProvider.addCartProduct(
+                                      widget.singleProduct.copyWith(qty: 1));
                                   showMessage("Added to Cart");
                                 } else {
                                   appProvider
@@ -110,15 +97,37 @@ class _SingleFavouriteItemState extends State<SingleFavouriteItem> {
                                 ),
                               ),
                             ),
+                            CupertinoButton(
+                              padding: EdgeInsets.zero,
+                              onPressed: () {
+                                AppProvider appProvider =
+                                    Provider.of<AppProvider>(context,
+                                        listen: false);
+                                appProvider.removeFavouriteProduct(
+                                    widget.singleProduct);
+                                showMessage("Removed to wishlist");
+                              },
+                              child: const Text(
+                                "Remove to wishlist",
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
-                        Flexible(
-                          child: Text(
+                        SizedBox(
+                          width: 55,
+
+                          child: AutoSizeText(
+                            textAlign: TextAlign.right,
                             "\$${widget.singleProduct.price.toString()}",
                             style: const TextStyle(
-                              fontSize: 18.0,
+                              fontSize: 16.0,
                               fontWeight: FontWeight.bold,
                             ),
+                            maxLines: 1,
                           ),
                         ),
                       ],
