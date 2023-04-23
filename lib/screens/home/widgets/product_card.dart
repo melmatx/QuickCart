@@ -12,7 +12,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor.withOpacity(0.3),
+        color: Theme.of(context).primaryColor.withOpacity(0.2),
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Column(

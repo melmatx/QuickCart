@@ -185,7 +185,7 @@ class _HomeState extends State<Home> {
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                           mainAxisSpacing: 20,
                                           crossAxisSpacing: 20,
-                                          childAspectRatio: 0.7,
+                                          childAspectRatio: 0.69,
                                           crossAxisCount: 2),
                                   itemBuilder: (ctx, index) {
                                     ProductModel singleProduct =
@@ -210,7 +210,7 @@ class _HomeState extends State<Home> {
                                           const SliverGridDelegateWithFixedCrossAxisCount(
                                               mainAxisSpacing: 20,
                                               crossAxisSpacing: 20,
-                                              childAspectRatio: 0.7,
+                                              childAspectRatio: 0.69,
                                               crossAxisCount: 2),
                                       itemBuilder: (ctx, index) {
                                         ProductModel singleProduct =

@@ -36,6 +36,7 @@ class _SingleCartItemState extends State<SingleCartItem> {
         children: [
           Expanded(
             child: Container(
+              padding: const EdgeInsets.all(6),
               height: 140,
               color: Theme.of(context).primaryColor.withOpacity(0.5),
               child: Image.network(
@@ -64,10 +65,14 @@ class _SingleCartItemState extends State<SingleCartItem> {
                               child: Text(
                                 widget.singleProduct.name,
                                 style: const TextStyle(
+                                  fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
                                 overflow: TextOverflow.ellipsis,
                               ),
+                            ),
+                            const SizedBox(
+                              height: 7,
                             ),
                             Row(
                               children: [
@@ -142,9 +147,10 @@ class _SingleCartItemState extends State<SingleCartItem> {
                         SizedBox(
                           width: 55,
                           child: AutoSizeText(
+                            textAlign: TextAlign.right,
                             "\$${widget.singleProduct.price.toString()}",
                             style: const TextStyle(
-                              fontSize: 18.0,
+                              fontSize: 16.0,
                               fontWeight: FontWeight.bold,
                             ),
                             maxLines: 1,

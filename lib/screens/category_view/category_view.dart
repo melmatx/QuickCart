@@ -93,7 +93,7 @@ class _CategoryViewState extends State<CategoryView> {
                                   const SliverGridDelegateWithFixedCrossAxisCount(
                                       mainAxisSpacing: 20,
                                       crossAxisSpacing: 20,
-                                      childAspectRatio: 0.7,
+                                      childAspectRatio: 0.69,
                                       crossAxisCount: 2),
                               itemBuilder: (ctx, index) {
                                 ProductModel singleProduct =
