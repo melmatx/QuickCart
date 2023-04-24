@@ -116,8 +116,8 @@ class _SignUpState extends State<SignUp> {
               PrimaryButton(
                 title: "Create an account",
                 onPressed: () async {
-                  bool isVaildated = signUpVaildation(
-                      email.text, password.text, name.text, phone.text, address.text);
+                  bool isVaildated = signUpVaildation(email.text, password.text,
+                      name.text, phone.text, address.text);
                   if (isVaildated) {
                     bool isLogined = await FirebaseAuthHelper.instance.signUp(
                         name.text,
@@ -155,6 +155,7 @@ class _SignUpState extends State<SignUp> {
           ),
         ),
       ),
+      appBar: AppBar(),
     );
   }
 }

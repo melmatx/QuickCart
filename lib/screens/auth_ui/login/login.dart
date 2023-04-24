@@ -149,6 +149,7 @@ class _LoginState extends State<Login> {
           ),
         ),
       ),
+      appBar: AppBar(),
     );
   }
 }

@@ -73,6 +73,7 @@ class Welcome extends StatelessWidget {
           ),
         ),
       ),
+      appBar: AppBar(),
     );
   }
 }
