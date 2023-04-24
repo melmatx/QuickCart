@@ -38,7 +38,7 @@ class _SignUpState extends State<SignUp> {
                   subtitle: "Welcome Back To $appName",
                   title: "Create Account"),
               const SizedBox(
-                height: 46.0,
+                height: 36.0,
               ),
               TextFormField(
                 controller: name,
@@ -155,7 +155,20 @@ class _SignUpState extends State<SignUp> {
           ),
         ),
       ),
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: CupertinoButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          padding: EdgeInsets.zero,
+          child: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+          ),
+        ),
+      ),
     );
   }
 }

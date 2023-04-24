@@ -37,7 +37,7 @@ class _LoginState extends State<Login> {
             children: [
               TopTitles(subtitle: "Welcome Back To $appName", title: "Login"),
               const SizedBox(
-                height: 46.0,
+                height: 36.0,
               ),
               TextFormField(
                 controller: email,
@@ -149,7 +149,20 @@ class _LoginState extends State<Login> {
           ),
         ),
       ),
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: CupertinoButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          padding: EdgeInsets.zero,
+          child: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+          ),
+        ),
+      ),
     );
   }
 }
