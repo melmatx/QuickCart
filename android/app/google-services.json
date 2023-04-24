@@ -31,10 +31,10 @@
               "client_type": 3
             },
             {
-              "client_id": "536335012908-f6vj6lalrgmlj8ak5agjsjg34th2ts8a.apps.googleusercontent.com",
+              "client_id": "536335012908-7atf63veu1gl597dbres0e7t1en2bggt.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.quickcart"
+                "bundle_id": "com.example.quickcart.RunnerTests"
               }
             }
           ]
