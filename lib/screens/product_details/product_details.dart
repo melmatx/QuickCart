@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:quickcart/constants/constants.dart';
 import 'package:quickcart/constants/routes.dart';
@@ -137,7 +136,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ProductModel productModel =
                           widget.singleProduct.copyWith(qty: qty);
                       appProvider.addCartProduct(productModel);
-                      Fluttertoast.cancel();
+                      removeToastQueues();
                       showMessage("Added to Cart");
                     },
                     child: const Text("ADD TO CART"),

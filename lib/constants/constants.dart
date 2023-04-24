@@ -2,16 +2,33 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:quickcart/main.dart';
 
 String appName = "QuickCart";
 
 void showMessage(String message) {
-  Fluttertoast.showToast(
-    msg: message,
-    backgroundColor: Colors.red,
-    textColor: Colors.white,
-    fontSize: 16.0,
+  FToast fToast = FToast();
+  fToast.init(navigatorKey.currentContext!);
+  fToast.showToast(
+    child: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.red.withOpacity(0.85),
+      ),
+      child: Text(
+        message,
+        style: const TextStyle(color: Colors.white),
+      ),
+    ),
+    gravity: ToastGravity.BOTTOM,
+    toastDuration: const Duration(seconds: 2),
   );
+}
+
+void removeToastQueues() {
+  FToast fToast = FToast();
+  fToast.removeQueuedCustomToasts();
 }
 
 showLoaderDialog(BuildContext context) {
@@ -110,7 +127,7 @@ String getMessageFromErrorCode(String errorCode) {
 }
 
 bool loginVaildation(String email, String password) {
-  Fluttertoast.cancel();
+  removeToastQueues();
   if (email.isEmpty && password.isEmpty) {
     showMessage("Both Fields are empty");
     return false;
@@ -127,7 +144,7 @@ bool loginVaildation(String email, String password) {
 
 bool signUpVaildation(
     String email, String password, String name, String phone, String address) {
-  Fluttertoast.cancel();
+  removeToastQueues();
   if (email.isEmpty &&
       password.isEmpty &&
       name.isEmpty &&
