@@ -127,11 +127,11 @@ class _LoginState extends State<Login> {
                 },
               ),
               const SizedBox(
-                height: 24.0,
+                height: 36.0,
               ),
               const Center(child: Text("Don't have an account?")),
               const SizedBox(
-                height: 12.0,
+                height: 6.0,
               ),
               Center(
                 child: CupertinoButton(

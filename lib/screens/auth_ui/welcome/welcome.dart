@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:quickcart/constants/asset_images.dart';
 import 'package:quickcart/constants/routes.dart';
 import 'package:quickcart/screens/auth_ui/login/login.dart';
+import 'package:quickcart/screens/auth_ui/sign_up/sign_up.dart';
 import 'package:quickcart/widgets/primary_button/primary_button.dart';
 import 'package:quickcart/widgets/top_titles/top_titles.dart';
-
-import '../sign_up/sign_up.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({super.key});
@@ -19,12 +18,20 @@ class Welcome extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const TopTitles(
-                  subtitle: "Your One Stop Shop for All Your Needs", title: "Welcome"),
+              const Center(
+                child: TopTitles(
+                    subtitle: "Your One Stop Shop for All Your Needs", title: "QuickCart", isCenter: true),
+              ),
+              const SizedBox(
+                height: 30.0,
+              ),
               Center(
                 child: Image.asset(
                   AssetsImages.instance.welcomeImage,
                 ),
+              ),
+              const SizedBox(
+                height: 40.0,
               ),
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.center,
@@ -51,9 +58,6 @@ class Welcome extends StatelessWidget {
               //     ),
               //   ],
               // ),
-              const SizedBox(
-                height: 30.0,
-              ),
               PrimaryButton(
                 title: "Login",
                 onPressed: () {
@@ -61,7 +65,7 @@ class Welcome extends StatelessWidget {
                 },
               ),
               const SizedBox(
-                height: 18.0,
+                height: 20.0,
               ),
               PrimaryButton(
                 title: "Sign Up",
