@@ -49,6 +49,9 @@ dependencies:
   flutter_native_splash: ^2.2.19
   collection: ^1.17.1
   auto_size_text: ^3.0.0
+  shared_preferences: ^2.1.0
+  flutter_onboarding_slider: ^1.0.9
+  flutter_svg: ^2.0.5
 
 dev_dependencies:
   flutter_test:
