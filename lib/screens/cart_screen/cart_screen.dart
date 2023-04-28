@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:quickcart/constants/asset_images.dart';
 import 'package:quickcart/constants/constants.dart';
 import 'package:quickcart/screens/cart_item_checkout/cart_item_checkout.dart';
 import 'package:quickcart/screens/cart_screen/widgets/single_cart_item.dart';
@@ -95,8 +97,22 @@ class _CartScreenState extends State<CartScreen> {
         ],
       ),
       body: appProvider.getCartProductList.isEmpty
-          ? const Center(
-              child: Text("Empty"),
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    AssetsImages.instance.emptyCart,
+                    semanticsLabel: 'Empty cart',
+                    width: 150,
+                    height: 150,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  const Text("Cart is Empty!"),
+                ],
+              ),
             )
           : ListView.builder(
               itemCount: appProvider.getCartProductList.length,

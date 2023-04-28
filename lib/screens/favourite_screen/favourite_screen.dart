@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:quickcart/constants/constants.dart';
 import 'package:quickcart/screens/favourite_screen/widgets/single_favourite_item.dart';
 
+import '../../constants/asset_images.dart';
 import '../../provider/app_provider.dart';
 
 class FavouriteScreen extends StatefulWidget {
@@ -52,8 +54,25 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
         ],
       ),
       body: appProvider.getFavouriteProductList.isEmpty
-          ? const Center(
-              child: Text("Empty"),
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    AssetsImages.instance.emptyWishlist,
+                    semanticsLabel: 'Empty wishlist',
+                    width: 150,
+                    height: 150,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  const Text("No favorites yet"),
+                  const SizedBox(
+                    height: 60,
+                  )
+                ],
+              ),
             )
           : ListView.builder(
               itemCount: appProvider.getFavouriteProductList.length,

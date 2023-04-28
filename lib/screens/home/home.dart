@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:quickcart/constants/routes.dart';
 import 'package:quickcart/firebase_helper/firebase_firestore_helper/firebase_firestore.dart';
@@ -8,6 +9,7 @@ import 'package:quickcart/provider/app_provider.dart';
 import 'package:quickcart/screens/category_view/category_view.dart';
 import 'package:quickcart/screens/home/widgets/product_card.dart';
 
+import '../../constants/asset_images.dart';
 import '../../models/product_model/product_model.dart';
 
 class Home extends StatefulWidget {
@@ -85,8 +87,20 @@ class _HomeState extends State<Home> {
                           onChanged: (String value) {
                             searchProducts(value);
                           },
-                          decoration:
-                              const InputDecoration(hintText: "Search...."),
+                          decoration: InputDecoration(
+                            hintText: "Search....",
+                            suffixIcon: search.text.isNotEmpty
+                                ? IconButton(
+                                    icon: const Icon(Icons.clear),
+                                    onPressed: () {
+                                      setState(() {
+                                        search.clear();
+                                        searchProducts('');
+                                      });
+                                    },
+                                  )
+                                : null,
+                          ),
                         ),
                         const SizedBox(
                           height: 24.0,
@@ -170,8 +184,24 @@ class _HomeState extends State<Home> {
                     height: 12.0,
                   ),
                   search.text.isNotEmpty && searchList.isEmpty
-                      ? const Center(
-                          child: Text("No Product Found"),
+                      ? Center(
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 15.0,
+                              ),
+                              SvgPicture.asset(
+                                AssetsImages.instance.emptySearch,
+                                semanticsLabel: 'Empty search',
+                                width: 200,
+                                height: 200,
+                              ),
+                              const SizedBox(
+                                height: 30.0,
+                              ),
+                              const Text("No Products Found"),
+                            ],
+                          ),
                         )
                       : searchList.isNotEmpty
                           ? Padding(

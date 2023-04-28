@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:quickcart/firebase_helper/firebase_firestore_helper/firebase_firestore.dart';
 import 'package:quickcart/models/order_model/order_model.dart';
 import 'package:quickcart/screens/order_screen/widgets/multiple_order_item.dart';
 import 'package:quickcart/screens/order_screen/widgets/single_order_item.dart';
+
+import '../../constants/asset_images.dart';
 
 class OrderScreen extends StatelessWidget {
   const OrderScreen({super.key});
@@ -32,8 +35,25 @@ class OrderScreen extends StatelessWidget {
           if (snapshot.data!.isEmpty ||
               snapshot.data == null ||
               !snapshot.hasData) {
-            return const Center(
-              child: Text("No Order Found"),
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    AssetsImages.instance.emptyOrders,
+                    semanticsLabel: 'Empty orders',
+                    width: 150,
+                    height: 150,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  const Text("No orders yet"),
+                  const SizedBox(
+                    height: 50,
+                  )
+                ],
+              ),
             );
           }
           

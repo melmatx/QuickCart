@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:quickcart/models/category_model/category_model.dart';
 import 'package:quickcart/screens/home/widgets/product_card.dart';
 
+import '../../constants/asset_images.dart';
 import '../../firebase_helper/firebase_firestore_helper/firebase_firestore.dart';
 import '../../models/product_model/product_model.dart';
 
@@ -58,56 +60,56 @@ class _CategoryViewState extends State<CategoryView> {
                 child: const CircularProgressIndicator(),
               ),
             )
-          : SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // const SizedBox(height: kToolbarHeight),
-                  // Padding(
-                  //   padding: const EdgeInsets.all(12.0),
-                  //   child: Row(
-                  //     children: [
-                  //       const BackButton(),
-                  //       Text(
-                  //         widget.categoryModel.name,
-                  //         style: const TextStyle(
-                  //           fontSize: 18.0,
-                  //           fontWeight: FontWeight.bold,
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                  productModelList.isEmpty
-                      ? const Center(
-                          child: Text("Best Product is empty"),
-                        )
-                      : Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: GridView.builder(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              primary: false,
-                              itemCount: productModelList.length,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                      mainAxisSpacing: 20,
-                                      crossAxisSpacing: 20,
-                                      childAspectRatio: 0.69,
-                                      crossAxisCount: 2),
-                              itemBuilder: (ctx, index) {
-                                ProductModel singleProduct =
-                                    productModelList[index];
-                                return ProductCard(
-                                    singleProduct: singleProduct);
-                              }),
-                        ),
-                  const SizedBox(
-                    height: 12.0,
+          : productModelList.isEmpty
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        AssetsImages.instance.emptyCategory,
+                        semanticsLabel: 'No data',
+                        width: 150,
+                        height: 150,
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      const Text("No products yet on this category"),
+                      const SizedBox(
+                        height: 60,
+                      )
+                    ],
                   ),
-                ],
-              ),
-            ),
+                )
+              : SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: GridView.builder(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            primary: false,
+                            itemCount: productModelList.length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    mainAxisSpacing: 20,
+                                    crossAxisSpacing: 20,
+                                    childAspectRatio: 0.69,
+                                    crossAxisCount: 2),
+                            itemBuilder: (ctx, index) {
+                              ProductModel singleProduct =
+                                  productModelList[index];
+                              return ProductCard(singleProduct: singleProduct);
+                            }),
+                      ),
+                      const SizedBox(
+                        height: 12.0,
+                      ),
+                    ],
+                  ),
+                ),
     );
   }
 }
