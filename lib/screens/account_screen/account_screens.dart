@@ -3,12 +3,13 @@ import 'package:provider/provider.dart';
 import 'package:quickcart/constants/routes.dart';
 import 'package:quickcart/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 import 'package:quickcart/screens/about_us/about_us.dart';
-import 'package:quickcart/screens/auth_ui/welcome/welcome.dart';
 import 'package:quickcart/screens/change_password/change_password.dart';
 import 'package:quickcart/screens/edit_profile/edit_profile.dart';
 import 'package:quickcart/screens/favourite_screen/favourite_screen.dart';
+import 'package:quickcart/screens/onboarding/onboarding.dart';
 import 'package:quickcart/screens/order_screen/order_screen.dart';
 import 'package:quickcart/widgets/primary_button/primary_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants/constants.dart';
 import '../../provider/app_provider.dart';
@@ -21,6 +22,13 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
+
+  _storeOnboardInfo() async {
+    int isNotViewed = 1;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('onBoard', isNotViewed);
+  }
+
   @override
   Widget build(BuildContext context) {
     AppProvider appProvider = Provider.of<AppProvider>(
@@ -79,7 +87,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     height: 12.0,
                   ),
                   SizedBox(
-                    width: 130,
+                    width: 135,
                     child: PrimaryButton(
                       title: "Edit Profile",
                       onPressed: () {
@@ -142,8 +150,9 @@ class _AccountScreenState extends State<AccountScreen> {
                         FirebaseAuthHelper.instance.signOut();
 
                         setState(() {
+                          _storeOnboardInfo();
                           Routes.instance.pushAndRemoveUntil(
-                              widget: const Welcome(),
+                              widget: const OnBoarding(),
                               context: context,
                               routeNav: true);
                         });
