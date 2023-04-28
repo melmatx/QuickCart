@@ -54,7 +54,7 @@ class ProductCard extends StatelessWidget {
                     context: context);
               },
               child: const Text(
-                "Buy",
+                "View",
               ),
             ),
           ),
