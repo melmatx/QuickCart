@@ -10,9 +10,19 @@ class PrimaryButton extends StatelessWidget {
     return SizedBox(
       height: 45,
       width: double.infinity,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        child: Text(title),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 5),
+        child: ElevatedButton(
+          onPressed: onPressed,
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25.0),
+              ),
+            ),
+          ),
+          child: Text(title),
+        ),
       ),
     );
   }
