@@ -143,7 +143,7 @@ bool loginVaildation(String email, String password) {
 }
 
 bool signUpVaildation(
-    String email, String password, String name, String phone, String address) {
+    String email, String password, String confirmPass, String name, String phone, String address) {
   removeToastQueues();
   if (email.isEmpty &&
       password.isEmpty &&
@@ -166,6 +166,9 @@ bool signUpVaildation(
     return false;
   } else if (address.isEmpty) {
     showMessage("Address is Empty");
+    return false;
+  } else if (password != confirmPass) {
+    showMessage("Passwords are not the same");
     return false;
   } else {
     return true;

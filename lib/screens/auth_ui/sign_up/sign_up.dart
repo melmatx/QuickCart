@@ -20,6 +20,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   bool isShowPassword = true;
   TextEditingController password = TextEditingController();
+  TextEditingController confirmPass = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController name = TextEditingController();
   TextEditingController phone = TextEditingController();
@@ -34,8 +35,8 @@ class _SignUpState extends State<SignUp> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TopTitles(
-                  subtitle: "Welcome Back To $appName",
+              const TopTitles(
+                  subtitle: "Start your shopping journey with us",
                   title: "Create Account"),
               const SizedBox(
                 height: 36.0,
@@ -111,12 +112,36 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
               const SizedBox(
+                height: 12.0,
+              ),
+              TextFormField(
+                controller: confirmPass,
+                obscureText: isShowPassword,
+                decoration: InputDecoration(
+                  hintText: "Confirm Password",
+                  prefixIcon: const Icon(
+                    Icons.password_sharp,
+                  ),
+                  suffixIcon: CupertinoButton(
+                      onPressed: () {
+                        setState(() {
+                          isShowPassword = !isShowPassword;
+                        });
+                      },
+                      padding: EdgeInsets.zero,
+                      child: const Icon(
+                        Icons.visibility,
+                        color: Colors.grey,
+                      )),
+                ),
+              ),
+              const SizedBox(
                 height: 36.0,
               ),
               PrimaryButton(
                 title: "Create an account",
                 onPressed: () async {
-                  bool isVaildated = signUpVaildation(email.text, password.text,
+                  bool isVaildated = signUpVaildation(email.text, password.text, confirmPass.text, 
                       name.text, phone.text, address.text);
                   if (isVaildated) {
                     bool isLogined = await FirebaseAuthHelper.instance.signUp(
@@ -134,11 +159,11 @@ class _SignUpState extends State<SignUp> {
                 },
               ),
               const SizedBox(
-                height: 24.0,
+                height: 36.0,
               ),
               const Center(child: Text("I have already an account?")),
               const SizedBox(
-                height: 12.0,
+                height: 6.0,
               ),
               Center(
                 child: CupertinoButton(
