@@ -83,13 +83,13 @@ class _SingleFavouriteItemState extends State<SingleFavouriteItem> {
                                 } else {
                                   appProvider
                                       .removeCartProduct(widget.singleProduct);
-                                  showMessage("Removed to Cart");
+                                  showMessage("Removed from Cart");
                                 }
                               },
                               child: Text(
                                 appProvider.getCartProductList.any((element) =>
                                         element.id == widget.singleProduct.id)
-                                    ? "Remove to Cart"
+                                    ? "Remove from Cart"
                                     : "Add to Cart",
                                 style: const TextStyle(
                                   fontSize: 12.0,
@@ -105,10 +105,10 @@ class _SingleFavouriteItemState extends State<SingleFavouriteItem> {
                                         listen: false);
                                 appProvider.removeFavouriteProduct(
                                     widget.singleProduct);
-                                showMessage("Removed to wishlist");
+                                showMessage("Removed from wishlist");
                               },
                               child: const Text(
-                                "Remove to wishlist",
+                                "Remove from wishlist",
                                 style: TextStyle(
                                   fontSize: 12.0,
                                   fontWeight: FontWeight.bold,
