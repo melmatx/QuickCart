@@ -4,6 +4,7 @@ import 'package:quickcart/constants/routes.dart';
 import 'package:quickcart/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 import 'package:quickcart/screens/about_us/about_us.dart';
 import 'package:quickcart/screens/change_password/change_password.dart';
+import 'package:quickcart/screens/chat_screen/chat_screen.dart';
 import 'package:quickcart/screens/edit_profile/edit_profile.dart';
 import 'package:quickcart/screens/favourite_screen/favourite_screen.dart';
 import 'package:quickcart/screens/onboarding/onboarding.dart';
@@ -22,7 +23,6 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
-
   _storeOnboardInfo() async {
     int isNotViewed = 1;
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -45,6 +45,15 @@ class _AccountScreenState extends State<AccountScreen> {
             color: Colors.black,
           ),
         ),
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 65.0),
+        child: FloatingActionButton(
+            child: const Icon(Icons.chat),
+            onPressed: () {
+              Routes.instance
+                  .push(widget: const ChatScreen(), context: context);
+            }),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -164,7 +173,6 @@ class _AccountScreenState extends State<AccountScreen> {
                   const SizedBox(
                     height: 12.0,
                   ),
-                  const Text("Version 1.0.0")
                 ],
               ),
             ),

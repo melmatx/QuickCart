@@ -12,5 +12,6 @@ class AssetsImages {
   final String emptyCategory = "$_imagesPath/empty_category.svg";
   final String emptyOrders = "$_imagesPath/empty_orders.svg";
   final String emptyWishlist = "$_imagesPath/empty_wishlist.svg";
+  final String emptyChat = "$_imagesPath/empty_chat.svg";
   final String noData = "$_imagesPath/no_data.svg";
 }
