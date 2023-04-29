@@ -17,23 +17,27 @@ class OnBoarding extends StatelessWidget {
     await prefs.setInt('onBoard', isViewed);
   }
 
+  _finishOnBoarding({required BuildContext context}) {
+    _storeOnboardInfo();
+    Widget home = StreamBuilder(
+      stream: FirebaseAuthHelper.instance.getAuthChange,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return const CustomBottomBar();
+        }
+
+        return const Welcome();
+      },
+    );
+    Routes.instance.pushAndRemoveUntil(widget: home, context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return OnBoardingSlider(
       finishButtonText: 'Get Started',
       onFinish: () {
-        _storeOnboardInfo();
-        Widget home = StreamBuilder(
-          stream: FirebaseAuthHelper.instance.getAuthChange,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return const CustomBottomBar();
-            }
-
-            return const Welcome();
-          },
-        );
-        Routes.instance.pushAndRemoveUntil(widget: home, context: context);
+        _finishOnBoarding(context: context);
       },
       finishButtonStyle: const FinishButtonStyle(
         elevation: 20,
@@ -44,6 +48,9 @@ class OnBoarding extends StatelessWidget {
           ),
         ),
       ),
+      skipFunctionOverride: () {
+        _finishOnBoarding(context: context);
+      },
       skipTextButton: const Text(
         'Skip',
         style: TextStyle(
