@@ -122,7 +122,7 @@ class _SingleFavouriteItemState extends State<SingleFavouriteItem> {
 
                           child: AutoSizeText(
                             textAlign: TextAlign.right,
-                            "\$${widget.singleProduct.price.toString()}",
+                            "₱${widget.singleProduct.price.toString()}",
                             style: const TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.bold,

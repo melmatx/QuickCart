@@ -19,6 +19,7 @@ class MultipleOrderItem extends StatelessWidget {
         textBaseline: TextBaseline.alphabetic,
         children: [
           Container(
+            padding: const EdgeInsets.all(6),
             height: 142,
             width: 120,
             color: Theme.of(context).primaryColor.withOpacity(0.5),
@@ -60,7 +61,7 @@ class MultipleOrderItem extends StatelessWidget {
                         ],
                       ),
                 Text(
-                  "Total Price: \$${orderModel.totalPrice.toString()}",
+                  "Total Price: ₱${orderModel.totalPrice.toString()}",
                   style: const TextStyle(
                     fontSize: 12.0,
                   ),
@@ -138,7 +139,7 @@ class MultipleOrderItem extends StatelessWidget {
                                   ],
                                 ),
                                 Text(
-                                  "Price: \$${singleProduct.price.toString()}",
+                                  "Price: ₱${singleProduct.price.toString()}",
                                   style: const TextStyle(
                                     fontSize: 12.0,
                                   ),

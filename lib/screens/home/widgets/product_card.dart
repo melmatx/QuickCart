@@ -40,7 +40,7 @@ class ProductCard extends StatelessWidget {
               maxLines: 1,
             ),
           ),
-          Text("Price: \$${singleProduct.price}"),
+          Text("Price: ₱${singleProduct.price}"),
           const SizedBox(
             height: 30.0,
           ),

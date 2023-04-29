@@ -38,6 +38,7 @@ class _SingleCartItemState extends State<SingleCartItem> {
             child: Container(
               padding: const EdgeInsets.all(6),
               height: 140,
+              width: 120,
               color: Theme.of(context).primaryColor.withOpacity(0.5),
               child: Image.network(
                 widget.singleProduct.image,
@@ -148,7 +149,7 @@ class _SingleCartItemState extends State<SingleCartItem> {
                           width: 55,
                           child: AutoSizeText(
                             textAlign: TextAlign.right,
-                            "\$${widget.singleProduct.price.toString()}",
+                            "₱${widget.singleProduct.price.toString()}",
                             style: const TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.bold,
