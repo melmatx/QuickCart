@@ -20,6 +20,7 @@ class Checkout extends StatefulWidget {
 class _CheckoutState extends State<Checkout> {
   int groupValue = 1;
   bool buttonClicked = false;
+  double shippingFee = 50.0;
 
   @override
   Widget build(BuildContext context) {
@@ -38,84 +39,202 @@ class _CheckoutState extends State<Checkout> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const Text(
+              "User Information",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
             const SizedBox(
-              height: 36.0,
+              height: 12.0,
             ),
             Container(
-              height: 80,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0),
+                  border: Border.all(
+                      color: Theme.of(context).primaryColor, width: 3.0)),
+              padding: const EdgeInsets.all(12.0),
+              width: double.infinity,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(Icons.person),
+                        const SizedBox(width: 8.0),
+                        Text(appProvider.getUserInformation.name),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        const Icon(Icons.email),
+                        const SizedBox(width: 8.0),
+                        Text(appProvider.getUserInformation.email),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        const Icon(Icons.phone),
+                        const SizedBox(width: 8.0),
+                        Text(appProvider.getUserInformation.phone),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        const Icon(Icons.location_on),
+                        const SizedBox(width: 8.0),
+                        Text(appProvider.getUserInformation.address),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 24.0,
+            ),
+            const Text(
+              "Payment Options",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 12.0,
+            ),
+            Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.0),
                   border: Border.all(
                       color: Theme.of(context).primaryColor, width: 3.0)),
               width: double.infinity,
-              child: Row(
+              child: Column(
                 children: [
-                  Radio(
-                    value: 1,
-                    groupValue: groupValue,
-                    onChanged: (value) {
-                      setState(() {
-                        groupValue = value!;
-                      });
-                    },
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Radio(
+                          value: 1,
+                          groupValue: groupValue,
+                          onChanged: (value) {
+                            setState(() {
+                              groupValue = value!;
+                            });
+                          },
+                        ),
+                        const Icon(Icons.money),
+                        const SizedBox(
+                          width: 12.0,
+                        ),
+                        const Text(
+                          "Cash on Delivery",
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  const Icon(Icons.money),
-                  const SizedBox(
-                    width: 12.0,
-                  ),
-                  const Text(
-                    "Cash on Delivery",
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Radio(
+                          value: 2,
+                          groupValue: groupValue,
+                          onChanged: (value) {
+                            setState(() {
+                              groupValue = value!;
+                            });
+                          },
+                        ),
+                        const Icon(Icons.account_balance),
+                        const SizedBox(
+                          width: 12.0,
+                        ),
+                        const Text(
+                          "Pay Online",
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
             ),
             const SizedBox(
-              height: 24.0,
+              height: 50.0,
             ),
-            Container(
-              height: 80,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.0),
-                  border: Border.all(
-                      color: Theme.of(context).primaryColor, width: 3.0)),
-              width: double.infinity,
-              child: Row(
-                children: [
-                  Radio(
-                    value: 2,
-                    groupValue: groupValue,
-                    onChanged: (value) {
-                      setState(() {
-                        groupValue = value!;
-                      });
-                    },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Total",
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const Icon(Icons.money),
-                  const SizedBox(
-                    width: 12.0,
+                ),
+                Text(
+                  "₱${(widget.singleProduct.price + shippingFee).toString()}",
+                  style: const TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const Text(
-                    "Pay Online",
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+                ),
+              ],
+            ),
+            const Divider(
+              thickness: 2.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Order Total",
+                  style: TextStyle(
+                    fontSize: 18.0,
                   ),
-                ],
-              ),
+                ),
+                Text(
+                  "₱${widget.singleProduct.price.toString()}",
+                  style: const TextStyle(
+                    fontSize: 18.0,
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Shipping Fee",
+                  style: TextStyle(
+                    fontSize: 18.0,
+                  ),
+                ),
+                Text(
+                  "₱${shippingFee.toString()}",
+                  style: const TextStyle(
+                    fontSize: 18.0,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
-              height: 24.0,
+              height: 40.0,
             ),
             PrimaryButton(
-              title: "Continue",
+              title: "Confirm Payment",
               onPressed: buttonClicked
                   ? null
                   : () async {

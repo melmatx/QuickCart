@@ -189,11 +189,12 @@ class AppProvider with ChangeNotifier {
   }
 
   double totalPriceBuyProductList() {
+    double shippingFee = 50.0;
     double totalPrice = 0.0;
     for (var element in _buyProductList) {
       totalPrice += element.price * element.qty!;
     }
-    return totalPrice;
+    return totalPrice + shippingFee;
   }
 
   ///////// BUY Product  / / // / / // / / / // /
