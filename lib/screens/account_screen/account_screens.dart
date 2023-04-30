@@ -116,10 +116,10 @@ class _AccountScreenState extends State<AccountScreen> {
                   ListTile(
                     onTap: () {
                       Routes.instance
-                          .push(widget: const AboutUs(), context: context);
+                          .push(widget: const ChatScreen(), context: context);
                     },
-                    leading: const Icon(Icons.info_outline),
-                    title: const Text("About us"),
+                    leading: const Icon(Icons.support_agent),
+                    title: const Text("Chat with our AI"),
                   ),
                   ListTile(
                     onTap: () {
@@ -132,10 +132,10 @@ class _AccountScreenState extends State<AccountScreen> {
                   ListTile(
                     onTap: () {
                       Routes.instance
-                          .push(widget: const ChatScreen(), context: context);
+                          .push(widget: const AboutUs(), context: context);
                     },
-                    leading: const Icon(Icons.support_agent),
-                    title: const Text("Chat with us"),
+                    leading: const Icon(Icons.info_outline),
+                    title: const Text("About us"),
                   ),
                   ListTile(
                     onTap: () async {
