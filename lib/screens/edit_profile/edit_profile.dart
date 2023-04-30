@@ -207,7 +207,7 @@ class _EditProfileState extends State<EditProfile> {
                     bool result = await showConfirmationDialog(
                       context: context,
                       title: 'Remove Profile Picture',
-                      content: 'Are you sure you want to remove profile picture?',
+                      content: "Are you you sure you want to remove it? You can't undo this action.",
                     );
 
                     if (result) {
