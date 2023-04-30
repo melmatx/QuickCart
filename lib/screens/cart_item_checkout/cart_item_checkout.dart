@@ -188,7 +188,7 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
                   ),
                 ),
                 Text(
-                  "₱${(appProvider.totalPrice() + shippingFee).toString()}",
+                  "₱${appProvider.totalPrice() % 1 == 0 ? (appProvider.totalPrice() + shippingFee).round().toString() : (appProvider.totalPrice() + shippingFee).toStringAsFixed(2)}",
                   style: const TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
@@ -209,7 +209,7 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
                   ),
                 ),
                 Text(
-                  "₱${appProvider.totalPrice().toString()}",
+                  "₱${appProvider.totalPrice() % 1 == 0 ? appProvider.totalPrice().round().toString() : appProvider.totalPrice().toStringAsFixed(2)}",
                   style: const TextStyle(
                     fontSize: 18.0,
                   ),
@@ -226,7 +226,7 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
                   ),
                 ),
                 Text(
-                  "₱${shippingFee.toString()}",
+                  "₱${shippingFee % 1 == 0 ? shippingFee.round().toString() : shippingFee.toStringAsFixed(2)}",
                   style: const TextStyle(
                     fontSize: 18.0,
                   ),
@@ -265,14 +265,13 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
                           });
                         }
                       } else {
-                        int value = double.parse(appProvider
-                                .totalPriceBuyProductList()
-                                .toString())
-                            .round()
-                            .toInt();
-                        String totalPrice = (value * 100).toString();
+                        double value = double.parse(
+                            (appProvider.totalPriceBuyProductList() * 10)
+                                .toStringAsFixed(2));
+                        String totalPrice =
+                            value.toString().replaceAll('.', '');
                         await StripeHelper.instance
-                            .makePayment(totalPrice.toString(), context,
+                            .makePayment(totalPrice, context,
                                 onPaymentResult: (isButtonClicked) {
                           setState(() {
                             buttonClicked = isButtonClicked;

@@ -25,47 +25,50 @@ class _CartScreenState extends State<CartScreen> {
     );
 
     return Scaffold(
-      bottomNavigationBar: SizedBox(
-        height: 180,
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Total",
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
+      bottomNavigationBar: appProvider.getCartProductList.isNotEmpty
+          ? SizedBox(
+              height: 180,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Total",
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "₱${appProvider.totalPrice() % 1 == 0 ? appProvider.totalPrice().round().toString() : appProvider.totalPrice().toStringAsFixed(2)}",
+                          style: const TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  Text(
-                    "₱${appProvider.totalPrice().toString()}",
-                    style: const TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
+                    const SizedBox(
+                      height: 24.0,
                     ),
-                  ),
-                ],
+                    PrimaryButton(
+                      title: "Checkout",
+                      onPressed: appProvider.getCartProductList.isEmpty
+                          ? null
+                          : () {
+                              Routes.instance.push(
+                                  widget: const CartItemCheckout(),
+                                  context: context);
+                            },
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(
-                height: 24.0,
-              ),
-              PrimaryButton(
-                title: "Checkout",
-                onPressed: appProvider.getCartProductList.isEmpty
-                    ? null
-                    : () {
-                        Routes.instance.push(
-                            widget: const CartItemCheckout(), context: context);
-                      },
-              ),
-            ],
-          ),
-        ),
-      ),
+            )
+          : null,
       appBar: AppBar(
         // backgroundColor: Colo,
         title: const Text(
@@ -75,25 +78,23 @@ class _CartScreenState extends State<CartScreen> {
           ),
         ),
         actions: [
-          appProvider.getCartProductList.isNotEmpty
-              ? IconButton(
-                  onPressed: () async {
-                    bool result = await showConfirmationDialog(
-                      context: context,
-                      title: 'Clear Cart',
-                      content: 'Are you sure you want to clear all cart items?',
-                    );
-                    if (result) {
-                      setState(() {
-                        appProvider.clearCartProductsFromFirebase();
-                        showMessage("Cart Cleared!");
-                      });
-                    }
-                  },
-                  icon: const Icon(Icons.delete_sweep),
-                )
-              : const IconButton(
-                  onPressed: null, icon: Icon(Icons.delete_sweep_outlined))
+          if (appProvider.getCartProductList.isNotEmpty)
+            IconButton(
+              onPressed: () async {
+                bool result = await showConfirmationDialog(
+                  context: context,
+                  title: 'Clear Cart',
+                  content: 'Are you sure you want to clear all cart items?',
+                );
+                if (result) {
+                  setState(() {
+                    appProvider.clearCartProductsFromFirebase();
+                    showMessage("Cart Cleared!");
+                  });
+                }
+              },
+              icon: const Icon(Icons.delete_sweep_outlined),
+            )
         ],
       ),
       body: appProvider.getCartProductList.isEmpty
@@ -105,12 +106,15 @@ class _CartScreenState extends State<CartScreen> {
                     AssetsImages.instance.emptyCart,
                     semanticsLabel: 'Empty cart',
                     width: 150,
-                    height: 150,
+                    height: 155,
                   ),
                   const SizedBox(
-                    height: 30,
+                    height: 35,
                   ),
                   const Text("Cart is Empty!"),
+                  const SizedBox(
+                    height: 60,
+                  )
                 ],
               ),
             )

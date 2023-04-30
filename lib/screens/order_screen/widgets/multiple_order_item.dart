@@ -61,7 +61,7 @@ class MultipleOrderItem extends StatelessWidget {
                         ],
                       ),
                 Text(
-                  "Total Price: ₱${orderModel.totalPrice.toString()}",
+                  "Total Price: ₱${orderModel.totalPrice % 1 == 0 ? orderModel.totalPrice.round().toString() : orderModel.totalPrice.toStringAsFixed(2)}",
                   style: const TextStyle(
                     fontSize: 12.0,
                   ),
@@ -139,7 +139,7 @@ class MultipleOrderItem extends StatelessWidget {
                                   ],
                                 ),
                                 Text(
-                                  "Price: ₱${singleProduct.price.toString()}",
+                                  "Price: ₱${singleProduct.price % 1 == 0 ? singleProduct.price.round().toString() : singleProduct.price.toStringAsFixed(2)}",
                                   style: const TextStyle(
                                     fontSize: 12.0,
                                   ),

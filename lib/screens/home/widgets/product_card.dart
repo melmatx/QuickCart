@@ -40,7 +40,7 @@ class ProductCard extends StatelessWidget {
               maxLines: 1,
             ),
           ),
-          Text("Price: ₱${singleProduct.price}"),
+          Text("Price: ₱${singleProduct.price % 1 == 0 ? singleProduct.price.round() : singleProduct.price.toStringAsFixed(2)}"),
           const SizedBox(
             height: 30.0,
           ),

@@ -119,10 +119,9 @@ class _SingleFavouriteItemState extends State<SingleFavouriteItem> {
                         ),
                         SizedBox(
                           width: 55,
-
                           child: AutoSizeText(
                             textAlign: TextAlign.right,
-                            "₱${widget.singleProduct.price.toString()}",
+                            "₱${widget.singleProduct.price % 1 == 0 ? widget.singleProduct.price.round().toString() : widget.singleProduct.price.toStringAsFixed(2)}",
                             style: const TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.bold,
