@@ -47,7 +47,7 @@ class ChatMessage extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: Text(
                 text.trim(),
                 style: Theme.of(context).textTheme.bodyLarge,
