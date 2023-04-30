@@ -6,7 +6,6 @@ import 'package:quickcart/screens/about_us/about_us.dart';
 import 'package:quickcart/screens/change_password/change_password.dart';
 import 'package:quickcart/screens/chat_screen/chat_screen.dart';
 import 'package:quickcart/screens/edit_profile/edit_profile.dart';
-import 'package:quickcart/screens/favourite_screen/favourite_screen.dart';
 import 'package:quickcart/screens/onboarding/onboarding.dart';
 import 'package:quickcart/screens/order_screen/order_screen.dart';
 import 'package:quickcart/widgets/primary_button/primary_button.dart';
@@ -45,15 +44,6 @@ class _AccountScreenState extends State<AccountScreen> {
             color: Colors.black,
           ),
         ),
-      ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 65.0),
-        child: FloatingActionButton(
-            child: const Icon(Icons.chat),
-            onPressed: () {
-              Routes.instance
-                  .push(widget: const ChatScreen(), context: context);
-            }),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -109,7 +99,7 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
             ),
             const SizedBox(
-              height: 6.0,
+              height: 12.0,
             ),
             SizedBox(
               height: 350,
@@ -122,14 +112,6 @@ class _AccountScreenState extends State<AccountScreen> {
                     },
                     leading: const Icon(Icons.shopping_bag_outlined),
                     title: const Text("Your Orders"),
-                  ),
-                  ListTile(
-                    onTap: () {
-                      Routes.instance.push(
-                          widget: const FavouriteScreen(), context: context);
-                    },
-                    leading: const Icon(Icons.favorite_outline),
-                    title: const Text("Wishlist"),
                   ),
                   ListTile(
                     onTap: () {
@@ -148,6 +130,14 @@ class _AccountScreenState extends State<AccountScreen> {
                     title: const Text("Change Password"),
                   ),
                   ListTile(
+                    onTap: () {
+                      Routes.instance
+                          .push(widget: const ChatScreen(), context: context);
+                    },
+                    leading: const Icon(Icons.support_agent),
+                    title: const Text("Chat with us"),
+                  ),
+                  ListTile(
                     onTap: () async {
                       bool result = await showConfirmationDialog(
                         context: context,
@@ -156,10 +146,10 @@ class _AccountScreenState extends State<AccountScreen> {
                       );
 
                       if (result) {
+                        _storeOnboardInfo();
                         FirebaseAuthHelper.instance.signOut();
 
                         setState(() {
-                          _storeOnboardInfo();
                           Routes.instance.pushAndRemoveUntil(
                               widget: const OnBoarding(),
                               context: context,

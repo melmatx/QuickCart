@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:quickcart/screens/account_screen/account_screens.dart';
 import 'package:quickcart/screens/cart_screen/cart_screen.dart';
+import 'package:quickcart/screens/favourite_screen/favourite_screen.dart';
 import 'package:quickcart/screens/home/home.dart';
-import 'package:quickcart/screens/order_screen/order_screen.dart';
 
 class CustomBottomBar extends StatefulWidget {
   const CustomBottomBar({
@@ -23,7 +23,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
   List<Widget> _buildScreens() => [
         const Home(),
         const CartScreen(),
-        const OrderScreen(),
+        const FavouriteScreen(),
         const AccountScreen(),
       ];
 
@@ -43,9 +43,9 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
           inactiveColorPrimary: Colors.white,
         ),
         PersistentBottomNavBarItem(
-          icon: const Icon(Icons.check_circle),
-          inactiveIcon: const Icon(Icons.check_circle_outlined),
-          title: "Orders",
+          icon: const Icon(Icons.favorite),
+          inactiveIcon: const Icon(Icons.favorite_border_outlined),
+          title: "Wishlist",
           activeColorPrimary: Colors.white,
           inactiveColorPrimary: Colors.white,
         ),

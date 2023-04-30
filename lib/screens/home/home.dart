@@ -7,6 +7,7 @@ import 'package:quickcart/firebase_helper/firebase_firestore_helper/firebase_fir
 import 'package:quickcart/models/category_model/category_model.dart';
 import 'package:quickcart/provider/app_provider.dart';
 import 'package:quickcart/screens/category_view/category_view.dart';
+import 'package:quickcart/screens/chat_screen/chat_screen.dart';
 import 'package:quickcart/screens/home/widgets/product_card.dart';
 
 import '../../constants/asset_images.dart';
@@ -63,6 +64,15 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 60.0),
+        child: FloatingActionButton(
+            child: const Icon(Icons.chat),
+            onPressed: () {
+              Routes.instance
+                  .push(widget: const ChatScreen(), context: context);
+            }),
+      ),
       body: isLoading
           ? Center(
               child: Container(
@@ -188,7 +198,7 @@ class _HomeState extends State<Home> {
                           child: Column(
                             children: [
                               const SizedBox(
-                                height: 15.0,
+                                height: 30.0,
                               ),
                               SvgPicture.asset(
                                 AssetsImages.instance.emptySearch,
