@@ -53,6 +53,7 @@ dependencies:
   flutter_onboarding_slider: ^1.0.9
   flutter_svg: ^2.0.5
   chat_gpt_sdk: ^2.1.2
+  flutter_dotenv: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -102,6 +103,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

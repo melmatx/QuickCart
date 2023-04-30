@@ -1,6 +1,7 @@
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../constants/asset_images.dart';
 import 'widgets/chat_message.dart';
@@ -23,7 +24,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     openAI = OpenAI.instance.build(
-        token: "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",
+        token: dotenv.env['API_KEY'],
         baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 5)));
     super.initState();
   }
@@ -97,7 +98,7 @@ class _ChatScreenState extends State<ChatScreen> {
           backgroundColor: Colors.white,
           centerTitle: true,
           title: const Text(
-            "Chat with us",
+            "Chat with our AI",
             style: TextStyle(
               color: Colors.black,
             ),
