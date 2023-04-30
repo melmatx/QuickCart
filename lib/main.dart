@@ -28,6 +28,9 @@ void main() async {
   
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Load .env file
+  await dotenv.load();
+
   // Get Stripe publishable key
   Stripe.publishableKey = dotenv.env['STRIPE_PUBLISHABLE_KEY']!;
 
@@ -40,9 +43,6 @@ void main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   // await prefs.setInt('onBoard', 1);
   isViewed = prefs.getInt('onBoard');
-
-  // Load .env file
-  await dotenv.load();
 
   runApp(const MyApp());
 }
