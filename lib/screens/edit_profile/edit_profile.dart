@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -202,7 +204,15 @@ class _EditProfileState extends State<EditProfile> {
             onPressed: appProvider.getUserInformation.image != null &&
                     appProvider.getUserInformation.image!.isNotEmpty
                 ? () async {
-                    appProvider.removeProfilePictureFirebase(context);
+                    bool result = await showConfirmationDialog(
+                      context: context,
+                      title: 'Remove Profile Picture',
+                      content: 'Are you sure you want to remove profile picture?',
+                    );
+
+                    if (result) {
+                      appProvider.removeProfilePictureFirebase(context);
+                    }
                   }
                 : null,
           ),

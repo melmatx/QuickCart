@@ -8,7 +8,6 @@ class AboutUs extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        // backgroundColor: Colo,
         title: const Text(
           "About Us",
           style: TextStyle(

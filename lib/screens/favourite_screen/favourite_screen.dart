@@ -25,32 +25,29 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
       appBar: AppBar(
         // backgroundColor: Colo,
         title: const Text(
-          "Favourite Screen",
+          "Wishlist",
           style: TextStyle(
             color: Colors.black,
           ),
         ),
         actions: [
-          appProvider.getFavouriteProductList.isNotEmpty
-              ? IconButton(
-                  onPressed: () async {
-                    bool result = await showConfirmationDialog(
-                      context: context,
-                      title: 'Clear Wishlist',
-                      content:
-                          'Are you sure you want to clear all wishlist items?',
-                    );
-                    if (result) {
-                      setState(() {
-                        appProvider.clearFavouriteListFirebase();
-                        showMessage("Wishlist cleared!");
-                      });
-                    }
-                  },
-                  icon: const Icon(Icons.delete_sweep),
-                )
-              : const IconButton(
-                  onPressed: null, icon: Icon(Icons.delete_sweep_outlined))
+          if (appProvider.getFavouriteProductList.isNotEmpty)
+            IconButton(
+              onPressed: () async {
+                bool result = await showConfirmationDialog(
+                  context: context,
+                  title: 'Clear Wishlist',
+                  content: 'Are you sure you want to clear all wishlist items?',
+                );
+                if (result) {
+                  setState(() {
+                    appProvider.clearFavouriteListFirebase();
+                    showMessage("Wishlist cleared!");
+                  });
+                }
+              },
+              icon: const Icon(Icons.delete_sweep_outlined),
+            )
         ],
       ),
       body: appProvider.getFavouriteProductList.isEmpty
@@ -62,7 +59,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                     AssetsImages.instance.emptyWishlist,
                     semanticsLabel: 'Empty wishlist',
                     width: 150,
-                    height: 150,
+                    height: 160,
                   ),
                   const SizedBox(
                     height: 30,
@@ -74,14 +71,17 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                 ],
               ),
             )
-          : ListView.builder(
-              itemCount: appProvider.getFavouriteProductList.length,
-              padding: const EdgeInsets.all(12),
-              itemBuilder: (ctx, index) {
-                return SingleFavouriteItem(
-                  singleProduct: appProvider.getFavouriteProductList[index],
-                );
-              }),
+          : Padding(
+              padding: const EdgeInsets.only(bottom: 50.0),
+              child: ListView.builder(
+                  itemCount: appProvider.getFavouriteProductList.length,
+                  padding: const EdgeInsets.all(12),
+                  itemBuilder: (ctx, index) {
+                    return SingleFavouriteItem(
+                      singleProduct: appProvider.getFavouriteProductList[index],
+                    );
+                  }),
+            ),
     );
   }
 }

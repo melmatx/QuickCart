@@ -24,7 +24,9 @@ class OrderScreen extends StatelessWidget {
         ),
       ),
       body: StreamBuilder(
-        stream: Stream.fromFuture(FirebaseFirestoreHelper.instance.getUserOrder(),),
+        stream: Stream.fromFuture(
+          FirebaseFirestoreHelper.instance.getUserOrder(),
+        ),
         // future: FirebaseFirestoreHelper.instance.getUserOrder(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -56,20 +58,19 @@ class OrderScreen extends StatelessWidget {
               ),
             );
           }
-          
-          return Padding(
-            padding: const EdgeInsets.only(bottom:50.0),
-            child: ListView.builder(
-              itemCount: snapshot.data!.length,
-              padding: const EdgeInsets.all(12.0),
-              itemBuilder: (context, index) {
-                OrderModel orderModel = snapshot.data![index];
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 12.0),
-                  child: orderModel.products.length > 1 ? MultipleOrderItem(orderModel: orderModel) : SingleOrderItem(orderModel: orderModel),
-                );
-              },
-            ),
+
+          return ListView.builder(
+            itemCount: snapshot.data!.length,
+            padding: const EdgeInsets.all(12.0),
+            itemBuilder: (context, index) {
+              OrderModel orderModel = snapshot.data![index];
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: orderModel.products.length > 1
+                    ? MultipleOrderItem(orderModel: orderModel)
+                    : SingleOrderItem(orderModel: orderModel),
+              );
+            },
           );
         },
       ),
