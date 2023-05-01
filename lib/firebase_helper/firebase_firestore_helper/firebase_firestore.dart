@@ -2,7 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:quickcart/constants/constants.dart';
 import 'package:quickcart/models/category_model/category_model.dart';
@@ -142,17 +142,17 @@ class FirebaseFirestoreHelper {
     }
   }
 
-  void updateTokenFromFirebase() async {
-    String? token = await FirebaseMessaging.instance.getToken();
-    if (token != null) {
-      await _firebaseFirestore
-          .collection("users")
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .update({
-        "notificationToken": token,
-      });
-    }
-  }
+  // void updateTokenFromFirebase() async {
+  //   String? token = await FirebaseMessaging.instance.getToken();
+  //   if (token != null) {
+  //     await _firebaseFirestore
+  //         .collection("users")
+  //         .doc(FirebaseAuth.instance.currentUser!.uid)
+  //         .update({
+  //       "notificationToken": token,
+  //     });
+  //   }
+  // }
 
   Future<void> addFavouriteProductToFirebase(ProductModel productModel) async {
     try {
