@@ -16,10 +16,8 @@ class ProductCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(
-            height: 12.0,
-          ),
           Image.network(
             singleProduct.image,
             height: 100,
@@ -42,7 +40,7 @@ class ProductCard extends StatelessWidget {
           ),
           Text("Price: ₱${singleProduct.price % 1 == 0 ? singleProduct.price.round() : singleProduct.price.toStringAsFixed(2)}"),
           const SizedBox(
-            height: 30.0,
+            height: 35.0,
           ),
           SizedBox(
             height: 45,

@@ -33,9 +33,9 @@ class MultipleOrderItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  width: 185,
+                  width: MediaQuery.of(context).size.width * 0.38,
                   child: Text(
-                    "${orderModel.products[0].name} and ${orderModel.products.length - 1} more...",
+                    "${orderModel.products[0].name.split(' ')[0]} and ${orderModel.products.length - 1} more...",
                     style: const TextStyle(
                       fontSize: 12.0,
                     ),
@@ -45,21 +45,19 @@ class MultipleOrderItem extends StatelessWidget {
                 const SizedBox(
                   height: 12.0,
                 ),
-                orderModel.products.length > 1
-                    ? SizedBox.fromSize()
-                    : Column(
-                        children: [
-                          Text(
-                            "Quanity: ${orderModel.products[0].qty.toString()}",
-                            style: const TextStyle(
-                              fontSize: 12.0,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 12.0,
-                          ),
-                        ],
+                Column(
+                  children: [
+                    Text(
+                      "Products in Cart: ${orderModel.products.length.toString()}",
+                      style: const TextStyle(
+                        fontSize: 12.0,
                       ),
+                    ),
+                    const SizedBox(
+                      height: 12.0,
+                    ),
+                  ],
+                ),
                 Text(
                   "Total Price: ₱${orderModel.totalPrice % 1 == 0 ? orderModel.totalPrice.round().toString() : orderModel.totalPrice.toStringAsFixed(2)}",
                   style: const TextStyle(
@@ -91,11 +89,33 @@ class MultipleOrderItem extends StatelessWidget {
       ),
       children: orderModel.products.length > 1
           ? [
+              Container(
+                height: 1.0,
+                decoration: BoxDecoration(
+                  color: Colors.grey[250],
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.3),
+                      blurRadius: 6.5,
+                      spreadRadius: 1.5,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 16.0,
+              ),
               const Text("Details"),
-              Divider(color: Theme.of(context).primaryColor),
+              Divider(
+                  color: Theme.of(context).primaryColor,
+                  thickness: 1,
+                  indent: 8,
+                  endIndent: 8),
               ...orderModel.products.map((singleProduct) {
                 return Padding(
-                  padding: const EdgeInsets.only(left: 12.0, top: 6.0),
+                  padding:
+                      const EdgeInsets.only(left: 12.0, top: 6.0, bottom: 6.0),
                   child: Column(
                     children: [
                       Row(
@@ -149,7 +169,6 @@ class MultipleOrderItem extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Divider(color: Theme.of(context).primaryColor),
                     ],
                   ),
                 );

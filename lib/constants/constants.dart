@@ -6,22 +6,23 @@ import 'package:quickcart/main.dart';
 
 String appName = "QuickCart";
 
-void showMessage(String message) {
+void showMessage(String message, {isTop = true}) {
   FToast fToast = FToast();
   fToast.init(navigatorKey.currentContext!);
   fToast.showToast(
     child: Container(
+      margin: !isTop ? const EdgeInsets.only(top: 124) : null,
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red.withOpacity(0.85),
+        color: Colors.red.withOpacity(0.90),
       ),
       child: Text(
         message,
         style: const TextStyle(color: Colors.white),
       ),
     ),
-    gravity: ToastGravity.BOTTOM,
+    gravity: isTop ? ToastGravity.TOP : ToastGravity.BOTTOM,
     toastDuration: const Duration(seconds: 2),
   );
 }
@@ -129,46 +130,46 @@ String getMessageFromErrorCode(String errorCode) {
 bool loginVaildation(String email, String password) {
   removeToastQueues();
   if (email.isEmpty && password.isEmpty) {
-    showMessage("Both Fields are empty");
+    showMessage("Both Fields are empty", isTop: false);
     return false;
   } else if (email.isEmpty) {
-    showMessage("Email is Empty");
+    showMessage("Email is Empty", isTop: false);
     return false;
   } else if (password.isEmpty) {
-    showMessage("Password is Empty");
+    showMessage("Password is Empty", isTop: false);
     return false;
   } else {
     return true;
   }
 }
 
-bool signUpVaildation(
-    String email, String password, String confirmPass, String name, String phone, String address) {
+bool signUpVaildation(String email, String password, String confirmPass,
+    String name, String phone, String address) {
   removeToastQueues();
   if (email.isEmpty &&
       password.isEmpty &&
       name.isEmpty &&
       phone.isEmpty &&
       address.isEmpty) {
-    showMessage("All Fields are empty");
+    showMessage("All Fields are empty", isTop: false);
     return false;
   } else if (name.isEmpty) {
-    showMessage("Name is Empty");
+    showMessage("Name is Empty", isTop: false);
     return false;
   } else if (email.isEmpty) {
-    showMessage("Email is Empty");
+    showMessage("Email is Empty", isTop: false);
     return false;
   } else if (phone.isEmpty) {
-    showMessage("Phone is Empty");
+    showMessage("Phone is Empty", isTop: false);
     return false;
   } else if (password.isEmpty) {
-    showMessage("Password is Empty");
+    showMessage("Password is Empty", isTop: false);
     return false;
   } else if (address.isEmpty) {
-    showMessage("Address is Empty");
+    showMessage("Address is Empty", isTop: false);
     return false;
   } else if (password != confirmPass) {
-    showMessage("Passwords are not the same");
+    showMessage("Passwords are not the same", isTop: false);
     return false;
   } else {
     return true;

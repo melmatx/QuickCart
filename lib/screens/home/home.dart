@@ -8,10 +8,10 @@ import 'package:quickcart/models/category_model/category_model.dart';
 import 'package:quickcart/provider/app_provider.dart';
 import 'package:quickcart/screens/category_view/category_view.dart';
 import 'package:quickcart/screens/chat_screen/chat_screen.dart';
-import 'package:quickcart/screens/home/widgets/product_card.dart';
 
 import '../../constants/asset_images.dart';
 import '../../models/product_model/product_model.dart';
+import 'widgets/product_grid.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
     setState(() {
       isLoading = true;
     });
-    FirebaseFirestoreHelper.instance.updateTokenFromFirebase();
+    // FirebaseFirestoreHelper.instance.updateTokenFromFirebase();
     categoriesList = await FirebaseFirestoreHelper.instance.getCategories();
     productModelList = await FirebaseFirestoreHelper.instance.getAllProducts();
 
@@ -216,23 +216,7 @@ class _HomeState extends State<Home> {
                       : searchList.isNotEmpty
                           ? Padding(
                               padding: const EdgeInsets.all(12.0),
-                              child: GridView.builder(
-                                  padding: const EdgeInsets.only(bottom: 50),
-                                  shrinkWrap: true,
-                                  primary: false,
-                                  itemCount: searchList.length,
-                                  gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                          mainAxisSpacing: 20,
-                                          crossAxisSpacing: 20,
-                                          childAspectRatio: 0.69,
-                                          crossAxisCount: 2),
-                                  itemBuilder: (ctx, index) {
-                                    ProductModel singleProduct =
-                                        searchList[index];
-                                    return ProductCard(
-                                        singleProduct: singleProduct);
-                                  }),
+                              child: ProductGrid(productList: searchList),
                             )
                           : productModelList.isEmpty
                               ? const Center(
@@ -240,24 +224,8 @@ class _HomeState extends State<Home> {
                                 )
                               : Padding(
                                   padding: const EdgeInsets.all(12.0),
-                                  child: GridView.builder(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 50),
-                                      shrinkWrap: true,
-                                      primary: false,
-                                      itemCount: productModelList.length,
-                                      gridDelegate:
-                                          const SliverGridDelegateWithFixedCrossAxisCount(
-                                              mainAxisSpacing: 20,
-                                              crossAxisSpacing: 20,
-                                              childAspectRatio: 0.69,
-                                              crossAxisCount: 2),
-                                      itemBuilder: (ctx, index) {
-                                        ProductModel singleProduct =
-                                            productModelList[index];
-                                        return ProductCard(
-                                            singleProduct: singleProduct);
-                                      }),
+                                  child: ProductGrid(
+                                      productList: productModelList),
                                 ),
                   const SizedBox(
                     height: 12.0,

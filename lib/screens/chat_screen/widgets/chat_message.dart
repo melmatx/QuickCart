@@ -15,46 +15,54 @@ class ChatMessage extends StatelessWidget {
     );
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Align(
-            alignment: Alignment.center,
-            child: Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: sender == "user" ? Colors.green[400] : Colors.red[400],
-                  borderRadius: BorderRadius.circular(16),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+        decoration: BoxDecoration(
+          color: sender == "user" ? Colors.grey[100] : Colors.white,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color:
+                        sender == "user" ? Colors.green[400] : Colors.red[400],
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: sender == "user"
+                      ? appProvider.getUserInformation.image == null ||
+                              appProvider.getUserInformation.image!.isEmpty
+                          ? const Icon(
+                              Icons.person,
+                              color: Colors.white,
+                              size: 24,
+                            )
+                          : CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                  appProvider.getUserInformation.image!),
+                              radius: 12,
+                            )
+                      : const Icon(
+                          Icons.support_agent,
+                          color: Colors.white,
+                          size: 24,
+                        )),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Text(
+                  text.trim(),
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
-                child: sender == "user"
-                    ? appProvider.getUserInformation.image == null ||
-                            appProvider.getUserInformation.image!.isEmpty
-                        ? const Icon(
-                            Icons.person,
-                            color: Colors.white,
-                            size: 24,
-                          )
-                        : CircleAvatar(
-                            backgroundImage: NetworkImage(
-                                appProvider.getUserInformation.image!),
-                            radius: 12,
-                          )
-                    : const Icon(
-                        Icons.support_agent,
-                        color: Colors.white,
-                        size: 24,
-                      )),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: Text(
-                text.trim(),
-                style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

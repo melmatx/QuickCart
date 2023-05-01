@@ -82,7 +82,7 @@ class _LoginState extends State<Login> {
                 onPressed: () async {
                   if (isWaiting) {
                     removeToastQueues();
-                    showMessage("Please wait for 30 seconds");
+                    showMessage("Please wait for 30 seconds", isTop: false);
                     return;
                   }
 

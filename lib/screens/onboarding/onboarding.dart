@@ -63,6 +63,7 @@ class OnBoarding extends StatelessWidget {
       totalPage: 3,
       headerBackgroundColor: Colors.white,
       pageBackgroundColor: Colors.white,
+      centerBackground: true,
       background: [
         Image.asset(
           AssetsImages.instance.slide_1,

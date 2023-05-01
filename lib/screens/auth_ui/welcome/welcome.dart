@@ -73,6 +73,9 @@ class Welcome extends StatelessWidget {
                   Routes.instance.push(widget: const SignUp(), context: context);
                 },
               ),
+              const SizedBox(
+                height: 20.0,
+              ),
             ],
           ),
         ),

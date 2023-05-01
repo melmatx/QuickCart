@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:quickcart/models/category_model/category_model.dart';
-import 'package:quickcart/screens/home/widgets/product_card.dart';
+import 'package:quickcart/screens/home/widgets/product_grid.dart';
 
 import '../../constants/asset_images.dart';
 import '../../firebase_helper/firebase_firestore_helper/firebase_firestore.dart';
@@ -86,24 +86,8 @@ class _CategoryViewState extends State<CategoryView> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: GridView.builder(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            primary: false,
-                            itemCount: productModelList.length,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    mainAxisSpacing: 20,
-                                    crossAxisSpacing: 20,
-                                    childAspectRatio: 0.69,
-                                    crossAxisCount: 2),
-                            itemBuilder: (ctx, index) {
-                              ProductModel singleProduct =
-                                  productModelList[index];
-                              return ProductCard(singleProduct: singleProduct);
-                            }),
-                      ),
+                          padding: const EdgeInsets.all(12.0),
+                          child: ProductGrid(productList: productModelList)),
                       const SizedBox(
                         height: 12.0,
                       ),

@@ -44,10 +44,12 @@ class _ProductDetailsState extends State<ProductDetails> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.network(
-                widget.singleProduct.image,
-                height: 400,
-                width: 400,
+              Center(
+                child: Image.network(
+                  widget.singleProduct.image,
+                  height: 400,
+                  width: 400,
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,9 +69,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                       });
                       if (widget.singleProduct.isFavourite) {
                         appProvider.addFavouriteProduct(widget.singleProduct);
+                        removeToastQueues();
+                        showMessage("Added to Wishlist");
                       } else {
                         appProvider
                             .removeFavouriteProduct(widget.singleProduct);
+                        removeToastQueues();
+                        showMessage("Removed from Wishlist");
                       }
                     },
                     icon: Icon(widget.singleProduct.isFavourite

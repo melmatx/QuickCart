@@ -216,6 +216,9 @@ class _EditProfileState extends State<EditProfile> {
                   }
                 : null,
           ),
+          const SizedBox(
+            height: 24.0,
+          ),
         ],
       ),
     );

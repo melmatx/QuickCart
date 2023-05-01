@@ -28,63 +28,66 @@ class SingleOrderItem extends StatelessWidget {
                   orderModel.products[0].image,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: 195,
-                      child: Text(
-                        orderModel.products[0].name,
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.45,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 195,
+                        child: Text(
+                          orderModel.products[0].name,
+                          style: const TextStyle(
+                            fontSize: 12.0,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 12.0,
+                      ),
+                      orderModel.products.length > 1
+                          ? SizedBox.fromSize()
+                          : Column(
+                              children: [
+                                Text(
+                                  "Quanity: ${orderModel.products[0].qty.toString()}",
+                                  style: const TextStyle(
+                                    fontSize: 12.0,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 12.0,
+                                ),
+                              ],
+                            ),
+                      Text(
+                        "Total Price: ₱${orderModel.totalPrice % 1 == 0 ? orderModel.totalPrice.round().toString() : orderModel.totalPrice.toStringAsFixed(2)}",
                         style: const TextStyle(
                           fontSize: 12.0,
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 12.0,
-                    ),
-                    orderModel.products.length > 1
-                        ? SizedBox.fromSize()
-                        : Column(
-                            children: [
-                              Text(
-                                "Quanity: ${orderModel.products[0].qty.toString()}",
-                                style: const TextStyle(
-                                  fontSize: 12.0,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 12.0,
-                              ),
-                            ],
-                          ),
-                    Text(
-                      "Total Price: ₱${orderModel.totalPrice % 1 == 0 ? orderModel.totalPrice.round().toString() : orderModel.totalPrice.toStringAsFixed(2)}",
-                      style: const TextStyle(
-                        fontSize: 12.0,
+                      const SizedBox(
+                        height: 12.0,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 12.0,
-                    ),
-                    Text(
-                      "Order Status: ${orderModel.status}",
-                      style: const TextStyle(
-                        fontSize: 12.0,
+                      Text(
+                        "Order Status: ${orderModel.status}",
+                        style: const TextStyle(
+                          fontSize: 12.0,
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 12.0,
-                    ),
-                    Text(
-                      "Date: ${orderModel.createdAt.toDate().toString().substring(0, 10)}",
-                      style: const TextStyle(
-                        fontSize: 12.0,
+                      const SizedBox(
+                        height: 12.0,
                       ),
-                    ),
-                  ],
+                      Text(
+                        "Date: ${orderModel.createdAt.toDate().toString().substring(0, 10)}",
+                        style: const TextStyle(
+                          fontSize: 12.0,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

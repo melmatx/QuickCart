@@ -21,7 +21,7 @@ class FirebaseAuthHelper {
       return true;
     } on FirebaseAuthException catch (error) {
       Navigator.of(context,rootNavigator: true).pop();
-      showMessage(getMessageFromErrorCode(error.code.toString()));
+      showMessage(getMessageFromErrorCode(error.code.toString()), isTop: false);
       return false;
     }
   }
@@ -40,7 +40,7 @@ class FirebaseAuthHelper {
       return true;
     } on FirebaseAuthException catch (error) {
       Navigator.of(context,rootNavigator: true).pop();
-      showMessage(getMessageFromErrorCode(error.code.toString()));
+      showMessage(getMessageFromErrorCode(error.code.toString()), isTop: false);
       return false;
     }
   }

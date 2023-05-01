@@ -110,36 +110,39 @@ class _ChatScreenState extends State<ChatScreen> {
               Flexible(
                 child: _messages.isEmpty
                     ? Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              AssetsImages.instance.emptyChat,
-                              semanticsLabel: 'Empty chat',
-                              width: 150,
-                              height: 150,
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            const Text("Start a conversation",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 35.0),
-                              child: Text(
-                                'All messages will be deleted after closing this screen for privacy reasons.',
-                                style: TextStyle(
-                                    fontSize: 12, fontStyle: FontStyle.italic),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                AssetsImages.instance.emptyChat,
+                                semanticsLabel: 'Empty chat',
+                                width: 150,
+                                height: 150,
                               ),
-                            ),
-                            const SizedBox(
-                              height: 60,
-                            ),
-                          ],
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              const Text("Start a conversation",
+                                  style: TextStyle(
+                                      fontSize: 20, fontWeight: FontWeight.bold)),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 35.0),
+                                child: Text(
+                                  'All messages will be deleted after closing this screen for privacy reasons.',
+                                  style: TextStyle(
+                                      fontSize: 12, fontStyle: FontStyle.italic),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 60,
+                              ),
+                            ],
+                          ),
                         ),
                       )
                     : ListView.builder(
@@ -153,7 +156,7 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
               if (_isTyping) const ThreeDots(),
               const SizedBox(
-                height: 5.0,
+                height: 7.0,
               ),
               Container(
                 decoration: const BoxDecoration(

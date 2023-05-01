@@ -105,10 +105,15 @@ class _SignUpState extends State<SignUp> {
                         });
                       },
                       padding: EdgeInsets.zero,
-                      child: const Icon(
-                        Icons.visibility,
-                        color: Colors.grey,
-                      )),
+                      child: isShowPassword
+                          ? const Icon(
+                              Icons.visibility,
+                              color: Colors.grey,
+                            )
+                          : const Icon(
+                              Icons.visibility_off,
+                              color: Colors.grey,
+                            )),
                 ),
               ),
               const SizedBox(
@@ -129,10 +134,15 @@ class _SignUpState extends State<SignUp> {
                         });
                       },
                       padding: EdgeInsets.zero,
-                      child: const Icon(
-                        Icons.visibility,
-                        color: Colors.grey,
-                      )),
+                      child: isShowPassword
+                          ? const Icon(
+                              Icons.visibility,
+                              color: Colors.grey,
+                            )
+                          : const Icon(
+                              Icons.visibility_off,
+                              color: Colors.grey,
+                            )),
                 ),
               ),
               const SizedBox(
@@ -141,8 +151,8 @@ class _SignUpState extends State<SignUp> {
               PrimaryButton(
                 title: "Create an account",
                 onPressed: () async {
-                  bool isVaildated = signUpVaildation(email.text, password.text, confirmPass.text, 
-                      name.text, phone.text, address.text);
+                  bool isVaildated = signUpVaildation(email.text, password.text,
+                      confirmPass.text, name.text, phone.text, address.text);
                   if (isVaildated) {
                     bool isLogined = await FirebaseAuthHelper.instance.signUp(
                         name.text,
