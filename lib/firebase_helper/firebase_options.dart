@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,7 +25,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -46,6 +46,16 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyBZmp8NaTtQKzh3TWIWe_f5NuWqLY0hr8I',
+    appId: '1:536335012908:web:91d4d8cb6400740d6c6d89',
+    messagingSenderId: '536335012908',
+    projectId: 'quickcart-5ade3',
+    authDomain: 'quickcart-5ade3.firebaseapp.com',
+    storageBucket: 'quickcart-5ade3.appspot.com',
+    measurementId: 'G-VM8ZCNBV1Z',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyA3_3W0JkRp9gZln2pp9TMVP_3qIM9kt0s',
     appId: '1:536335012908:android:c5ae97933ed329b16c6d89',
@@ -56,21 +66,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyA2aocLKTzhTo2dnNAFlPKh1aXH9o1wHSY',
-    appId: '1:536335012908:ios:9571e41104b8c6d56c6d89',
+    appId: '1:536335012908:ios:953f25fa65fea4b36c6d89',
     messagingSenderId: '536335012908',
     projectId: 'quickcart-5ade3',
     storageBucket: 'quickcart-5ade3.appspot.com',
-    iosClientId: '536335012908-f6vj6lalrgmlj8ak5agjsjg34th2ts8a.apps.googleusercontent.com',
-    iosBundleId: 'com.example.quickcart',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyA2aocLKTzhTo2dnNAFlPKh1aXH9o1wHSY',
-    appId: '1:536335012908:ios:f9e3e230568aa8ed6c6d89',
-    messagingSenderId: '536335012908',
-    projectId: 'quickcart-5ade3',
-    storageBucket: 'quickcart-5ade3.appspot.com',
-    iosClientId: '536335012908-7atf63veu1gl597dbres0e7t1en2bggt.apps.googleusercontent.com',
-    iosBundleId: 'com.example.quickcart.RunnerTests',
+    iosClientId: '536335012908-f4v1vvnh3la0ua13hg5m50brr0818ki3.apps.googleusercontent.com',
+    iosBundleId: 'com.melpalana13.quickcart',
   );
 }
