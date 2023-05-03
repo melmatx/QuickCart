@@ -86,7 +86,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
               Text(widget.singleProduct.description),
               const SizedBox(
-                height: 30.00,
+                height: 32.0,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -132,20 +132,24 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
               // const Spacer(),
               const SizedBox(
-                height: 24.0,
+                height: 30.0,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  OutlinedButton(
-                    onPressed: () {
-                      ProductModel productModel =
-                          widget.singleProduct.copyWith(qty: qty);
-                      appProvider.addCartProduct(productModel);
-                      removeToastQueues();
-                      showMessage("Added to Cart");
-                    },
-                    child: const Text("ADD TO CART"),
+                  SizedBox(
+                    height: 39,
+                    width: 140,
+                    child: OutlinedButton(
+                      onPressed: () {
+                        ProductModel productModel =
+                            widget.singleProduct.copyWith(qty: qty);
+                        appProvider.addCartProduct(productModel);
+                        removeToastQueues();
+                        showMessage("Added to Cart");
+                      },
+                      child: const Text("ADD TO CART"),
+                    ),
                   ),
                   const SizedBox(
                     width: 24.0,
