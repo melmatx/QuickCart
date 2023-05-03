@@ -2,6 +2,7 @@ import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:quickcart/constants/constants.dart';
 
 import '../../constants/asset_images.dart';
 import 'widgets/chat_message.dart';
@@ -47,8 +48,13 @@ class _ChatScreenState extends State<ChatScreen> {
       Map.of({"role": "user", "content": message.text})
     ], maxToken: 200, model: ChatModel.gptTurbo);
 
-    final response = await openAI.onChatCompletion(request: request);
-    insertNewData(response!.choices[0].message!.content);
+    try {
+      final response = await openAI.onChatCompletion(request: request);
+      insertNewData(response!.choices[0].message!.content);
+    } catch (e) {
+      showMessage(e.toString());
+      debugPrint(e.toString());
+    }
   }
 
   void insertNewData(String response) {
@@ -125,7 +131,8 @@ class _ChatScreenState extends State<ChatScreen> {
                               ),
                               const Text("Start a conversation",
                                   style: TextStyle(
-                                      fontSize: 20, fontWeight: FontWeight.bold)),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold)),
                               const SizedBox(
                                 height: 25,
                               ),
@@ -134,7 +141,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                 child: Text(
                                   'All messages will be deleted after closing this screen for privacy reasons.',
                                   style: TextStyle(
-                                      fontSize: 12, fontStyle: FontStyle.italic),
+                                      fontSize: 12,
+                                      fontStyle: FontStyle.italic),
                                   textAlign: TextAlign.center,
                                 ),
                               ),
