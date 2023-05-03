@@ -11,6 +11,12 @@ class Welcome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Get the screen width
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    // Set the image size based on the screen width
+    double imageSize = screenWidth < 600 ? screenWidth : screenWidth * 0.5;
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -20,18 +26,23 @@ class Welcome extends StatelessWidget {
             children: [
               const Center(
                 child: TopTitles(
-                    subtitle: "Your One Stop Shop for All Your Needs", title: "QuickCart", isCenter: true),
+                    subtitle: "Your One Stop Shop for All Your Needs",
+                    title: "QuickCart",
+                    isCenter: true),
               ),
               const SizedBox(
                 height: 30.0,
               ),
               Center(
-                child: Image.asset(
-                  AssetsImages.instance.welcomeImage,
+                child: SizedBox(
+                  width: imageSize,
+                  child: Image.asset(
+                    AssetsImages.instance.welcomeImage,
+                  ),
                 ),
               ),
               const SizedBox(
-                height: 40.0,
+                height: 30.0,
               ),
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.center,
@@ -70,7 +81,8 @@ class Welcome extends StatelessWidget {
               PrimaryButton(
                 title: "Sign Up",
                 onPressed: () {
-                  Routes.instance.push(widget: const SignUp(), context: context);
+                  Routes.instance
+                      .push(widget: const SignUp(), context: context);
                 },
               ),
               const SizedBox(
