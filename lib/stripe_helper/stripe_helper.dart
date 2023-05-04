@@ -39,7 +39,12 @@ class StripeHelper {
       //STEP 3: Display Payment sheet
       displayPaymentSheet(context, onPaymentResult: onPaymentResult);
     } catch (err) {
-      showMessage("Payment failed");
+      if (err.toString().contains('WebUnsupportedError')) {
+        showMessage("Online payment not supported on web yet");
+      } else {
+        showMessage("Payment failed");
+        debugPrint(err.toString());
+      }
       onPaymentResult(false);
     }
   }
