@@ -36,6 +36,7 @@ class Welcome extends StatelessWidget {
               Center(
                 child: SizedBox(
                   width: imageSize,
+                  height: imageSize / 2 + 50.0,
                   child: Image.asset(
                     AssetsImages.instance.welcomeImage,
                   ),
