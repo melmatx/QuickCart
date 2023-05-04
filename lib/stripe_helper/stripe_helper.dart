@@ -40,6 +40,7 @@ class StripeHelper {
       displayPaymentSheet(context, onPaymentResult: onPaymentResult);
     } catch (err) {
       showMessage("Payment failed");
+      onPaymentResult(false);
     }
   }
 
