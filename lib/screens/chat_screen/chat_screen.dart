@@ -1,7 +1,6 @@
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:quickcart/constants/constants.dart';
 
 import '../../constants/asset_images.dart';
@@ -25,7 +24,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     openAI = OpenAI.instance.build(
-        token: dotenv.env['API_KEY'],
+        token: "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",
         baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 5)));
     super.initState();
   }

@@ -12,7 +12,6 @@ import 'package:quickcart/screens/auth_ui/welcome/welcome.dart';
 import 'package:quickcart/screens/custom_bottom_bar/custom_bottom_bar.dart';
 import 'package:quickcart/screens/onboarding/onboarding.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'firebase_helper/firebase_options.dart';
 
@@ -28,11 +27,8 @@ void main() async {
   
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Load .env file
-  await dotenv.load();
-
   // Get Stripe publishable key
-  Stripe.publishableKey = dotenv.env['STRIPE_PUBLISHABLE_KEY']!;
+  Stripe.publishableKey = "pk_test_51MWx8OAVMyklfe3CsjEzA1CiiY0XBTlHYbZ8jQlGtVFIwQi4aNeGv8J1HUw4rgSavMTLzTwgn0XRlwoTVRFXyu2h00mRUeWmAf";
 
   // Initialize Firebase
   await Firebase.initializeApp(
