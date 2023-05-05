@@ -48,6 +48,9 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
               },
               icon: const Icon(Icons.delete_sweep_outlined),
             )
+          else
+            const IconButton(
+                onPressed: null, icon: Icon(Icons.delete_sweep_outlined))
         ],
       ),
       body: appProvider.getFavouriteProductList.isEmpty

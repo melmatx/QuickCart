@@ -95,6 +95,9 @@ class _CartScreenState extends State<CartScreen> {
               },
               icon: const Icon(Icons.delete_sweep_outlined),
             )
+          else
+            const IconButton(
+                onPressed: null, icon: Icon(Icons.delete_sweep_outlined))
         ],
       ),
       body: appProvider.getCartProductList.isEmpty

@@ -98,7 +98,7 @@ class _HomeState extends State<Home> {
                             searchProducts(value);
                           },
                           decoration: InputDecoration(
-                            hintText: "Search....",
+                            hintText: "Search...",
                             suffixIcon: search.text.isNotEmpty
                                 ? IconButton(
                                     icon: const Icon(Icons.clear),
@@ -109,7 +109,7 @@ class _HomeState extends State<Home> {
                                       });
                                     },
                                   )
-                                : null,
+                                : const Icon(Icons.search),
                           ),
                         ),
                         const SizedBox(
