@@ -217,6 +217,9 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
                   ),
                 ],
               ),
+              const SizedBox(
+                height: 12.0,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

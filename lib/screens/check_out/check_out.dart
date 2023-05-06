@@ -186,9 +186,7 @@ class _CheckoutState extends State<Checkout> {
                     ),
                   ),
                   Text(
-                    shippingFee == 0.0
-                        ? "-"
-                        : "₱${widget.singleProduct.price % 1 == 0 ? (widget.singleProduct.price + shippingFee).round().toString() : (widget.singleProduct.price + shippingFee).toStringAsFixed(2)}",
+                    "₱${widget.singleProduct.price % 1 == 0 ? (widget.singleProduct.price + shippingFee).round().toString() : (widget.singleProduct.price + shippingFee).toStringAsFixed(2)}",
                     style: const TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
@@ -216,6 +214,9 @@ class _CheckoutState extends State<Checkout> {
                   ),
                 ],
               ),
+              const SizedBox(
+                height: 12.0,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -226,7 +227,9 @@ class _CheckoutState extends State<Checkout> {
                     ),
                   ),
                   Text(
-                    "₱${shippingFee % 1 == 0 ? shippingFee.round().toString() : shippingFee.toStringAsFixed(2)}",
+                    shippingFee == 0.0
+                        ? "-"
+                        : "₱${shippingFee % 1 == 0 ? shippingFee.round().toString() : shippingFee.toStringAsFixed(2)}",
                     style: const TextStyle(
                       fontSize: 18.0,
                     ),
