@@ -22,7 +22,7 @@ class CartItemCheckout extends StatefulWidget {
 class _CartItemCheckoutState extends State<CartItemCheckout> {
   int groupValue = 1;
   bool buttonClicked = false;
-  double shippingFee = 50.0;
+  double shippingFee = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -227,7 +227,9 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
                     ),
                   ),
                   Text(
-                    "₱${shippingFee % 1 == 0 ? shippingFee.round().toString() : shippingFee.toStringAsFixed(2)}",
+                    shippingFee == 0.0
+                        ? "-"
+                        : "₱${shippingFee % 1 == 0 ? shippingFee.round().toString() : shippingFee.toStringAsFixed(2)}",
                     style: const TextStyle(
                       fontSize: 18.0,
                     ),
@@ -247,14 +249,14 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
                         });
                         appProvider.clearBuyProduct();
                         appProvider.addBuyProductCartList();
-        
+
                         if (groupValue == 1) {
                           bool value = await FirebaseFirestoreHelper.instance
                               .uploadOrderedProductFirebase(
                                   appProvider.getBuyProductList,
                                   context,
                                   "Cash on delivery");
-        
+
                           if (value) {
                             Future.delayed(const Duration(seconds: 1), () {
                               appProvider.clearBuyProduct();

@@ -77,7 +77,7 @@ class FirebaseFirestoreHelper {
   }
 
   Future<bool> uploadOrderedProductFirebase(
-      List<ProductModel> list, BuildContext context, String payment, {double shipping = 50.0}) async {
+      List<ProductModel> list, BuildContext context, String payment, {double shipping = 0.0}) async {
     try {
       showLoaderDialog(context);
       double totalPrice = 0.0;

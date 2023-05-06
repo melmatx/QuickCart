@@ -20,7 +20,7 @@ class Checkout extends StatefulWidget {
 class _CheckoutState extends State<Checkout> {
   int groupValue = 1;
   bool buttonClicked = false;
-  double shippingFee = 50.0;
+  double shippingFee = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -186,7 +186,9 @@ class _CheckoutState extends State<Checkout> {
                     ),
                   ),
                   Text(
-                    "₱${widget.singleProduct.price % 1 == 0 ? (widget.singleProduct.price + shippingFee).round().toString() : (widget.singleProduct.price + shippingFee).toStringAsFixed(2)}",
+                    shippingFee == 0.0
+                        ? "-"
+                        : "₱${widget.singleProduct.price % 1 == 0 ? (widget.singleProduct.price + shippingFee).round().toString() : (widget.singleProduct.price + shippingFee).toStringAsFixed(2)}",
                     style: const TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
@@ -244,14 +246,14 @@ class _CheckoutState extends State<Checkout> {
                         });
                         appProvider.clearBuyProduct();
                         appProvider.addBuyProduct(widget.singleProduct);
-        
+
                         if (groupValue == 1) {
                           bool value = await FirebaseFirestoreHelper.instance
                               .uploadOrderedProductFirebase(
                                   appProvider.getBuyProductList,
                                   context,
                                   "Cash on delivery");
-        
+
                           if (value) {
                             Future.delayed(const Duration(seconds: 1), () {
                               appProvider.clearBuyProduct();
