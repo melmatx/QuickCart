@@ -207,7 +207,7 @@ class _CheckoutState extends State<Checkout> {
                     Text(
                       "${widget.singleProduct.name} x${widget.singleProduct.qty}",
                       style: const TextStyle(
-                        fontSize: 18.0,
+                        fontSize: 17.0,
                       ),
                     ),
                     Text(
@@ -228,7 +228,7 @@ class _CheckoutState extends State<Checkout> {
                   const Text(
                     "Shipping Fee",
                     style: TextStyle(
-                      fontSize: 17.0,
+                      fontSize: 16.0,
                     ),
                   ),
                   Text(
@@ -236,7 +236,7 @@ class _CheckoutState extends State<Checkout> {
                         ? "-"
                         : "₱${shippingFee % 1 == 0 ? shippingFee.round().toString() : shippingFee.toStringAsFixed(2)}",
                     style: const TextStyle(
-                      fontSize: 17.0,
+                      fontSize: 18.0,
                     ),
                   ),
                 ],

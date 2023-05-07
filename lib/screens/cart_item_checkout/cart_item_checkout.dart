@@ -203,7 +203,7 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
               ),
               ListView.builder(
                   shrinkWrap: true,
-                  padding: const EdgeInsets.only(top: 7.0, bottom: 3.0),
+                  padding: const EdgeInsets.symmetric(vertical: 7.0),
                   itemCount: appProvider.getCartProductList.length,
                   itemBuilder: (ctx, index) {
                     ProductModel productModel =
@@ -218,7 +218,7 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
                             Text(
                               "${productModel.name} x${productModel.qty}",
                               style: const TextStyle(
-                                fontSize: 18.0,
+                                fontSize: 17.0,
                               ),
                             ),
                             Text(
@@ -241,7 +241,7 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
                   const Text(
                     "Shipping Fee",
                     style: TextStyle(
-                      fontSize: 17.0,
+                      fontSize: 16.0,
                     ),
                   ),
                   Text(
@@ -249,7 +249,7 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
                         ? "-"
                         : "₱${shippingFee % 1 == 0 ? shippingFee.round().toString() : shippingFee.toStringAsFixed(2)}",
                     style: const TextStyle(
-                      fontSize: 17.0,
+                      fontSize: 18.0,
                     ),
                   ),
                 ],
