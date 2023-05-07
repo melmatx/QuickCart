@@ -6,6 +6,7 @@ import 'package:quickcart/widgets/primary_button/primary_button.dart';
 
 import '../../constants/routes.dart';
 import '../../firebase_helper/firebase_firestore_helper/firebase_firestore.dart';
+import '../../models/product_model/product_model.dart';
 import '../../provider/app_provider.dart';
 import '../../stripe_helper/stripe_helper.dart';
 import '../custom_bottom_bar/custom_bottom_bar.dart';
@@ -200,33 +201,47 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
               const Divider(
                 thickness: 2.0,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Order Total",
-                    style: TextStyle(
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  Text(
-                    "₱${appProvider.totalPrice() % 1 == 0 ? appProvider.totalPrice().round().toString() : appProvider.totalPrice().toStringAsFixed(2)}",
-                    style: const TextStyle(
-                      fontSize: 18.0,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 12.0,
-              ),
+              ListView.builder(
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.only(top: 7.0, bottom: 3.0),
+                  itemCount: appProvider.getCartProductList.length,
+                  itemBuilder: (ctx, index) {
+                    ProductModel productModel =
+                        appProvider.getCartProductList[index];
+                    double newPrice =
+                        productModel.price * (productModel.qty ?? 1);
+                    return Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "${productModel.name} x${productModel.qty}",
+                              style: const TextStyle(
+                                fontSize: 18.0,
+                              ),
+                            ),
+                            Text(
+                              "₱${newPrice % 1 == 0 ? newPrice.round().toString() : newPrice.toStringAsFixed(2)}",
+                              style: const TextStyle(
+                                fontSize: 18.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 12.0,
+                        ),
+                      ],
+                    );
+                  }),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
                     "Shipping Fee",
                     style: TextStyle(
-                      fontSize: 18.0,
+                      fontSize: 17.0,
                     ),
                   ),
                   Text(
@@ -234,7 +249,7 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
                         ? "-"
                         : "₱${shippingFee % 1 == 0 ? shippingFee.round().toString() : shippingFee.toStringAsFixed(2)}",
                     style: const TextStyle(
-                      fontSize: 18.0,
+                      fontSize: 17.0,
                     ),
                   ),
                 ],

@@ -84,6 +84,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                 ],
               ),
+              Text(
+                "₱${widget.singleProduct.price}",
+                style: const TextStyle(fontSize: 16),
+              ),
+              const SizedBox(
+                height: 12.0,
+              ),
               Text(widget.singleProduct.description),
               const SizedBox(
                 height: 32.0,

@@ -27,6 +27,8 @@ class _CheckoutState extends State<Checkout> {
     AppProvider appProvider = Provider.of<AppProvider>(
       context,
     );
+    double newPrice = widget.singleProduct.price * (widget.singleProduct.qty ?? 1);
+    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -186,7 +188,7 @@ class _CheckoutState extends State<Checkout> {
                     ),
                   ),
                   Text(
-                    "₱${widget.singleProduct.price % 1 == 0 ? (widget.singleProduct.price + shippingFee).round().toString() : (widget.singleProduct.price + shippingFee).toStringAsFixed(2)}",
+                    "₱${newPrice % 1 == 0 ? (newPrice + shippingFee).round().toString() : (newPrice + shippingFee).toStringAsFixed(2)}",
                     style: const TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
@@ -197,22 +199,25 @@ class _CheckoutState extends State<Checkout> {
               const Divider(
                 thickness: 2.0,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Order Total",
-                    style: TextStyle(
-                      fontSize: 18.0,
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 7.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "${widget.singleProduct.name} x${widget.singleProduct.qty}",
+                      style: const TextStyle(
+                        fontSize: 18.0,
+                      ),
                     ),
-                  ),
-                  Text(
-                    "₱${widget.singleProduct.price % 1 == 0 ? widget.singleProduct.price.round().toString() : widget.singleProduct.price.toStringAsFixed(2)}",
-                    style: const TextStyle(
-                      fontSize: 18.0,
+                    Text(
+                      "₱${newPrice % 1 == 0 ? newPrice.round().toString() : newPrice.toStringAsFixed(2)}",
+                      style: const TextStyle(
+                        fontSize: 18.0,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 12.0,
@@ -223,7 +228,7 @@ class _CheckoutState extends State<Checkout> {
                   const Text(
                     "Shipping Fee",
                     style: TextStyle(
-                      fontSize: 18.0,
+                      fontSize: 17.0,
                     ),
                   ),
                   Text(
@@ -231,7 +236,7 @@ class _CheckoutState extends State<Checkout> {
                         ? "-"
                         : "₱${shippingFee % 1 == 0 ? shippingFee.round().toString() : shippingFee.toStringAsFixed(2)}",
                     style: const TextStyle(
-                      fontSize: 18.0,
+                      fontSize: 17.0,
                     ),
                   ),
                 ],
