@@ -193,5 +193,9 @@ bool editProfileValidation(
 }
 
 String extractErrorMessage(String error) {
-  return error.toString().split("Firebase:")[1].split("(")[0].trim();
+  try {
+    return error.split("Firebase:")[1].split("(")[0].trim();
+  } catch (e) {
+    return error.trim();
+  }
 }
