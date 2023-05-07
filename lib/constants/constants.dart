@@ -93,41 +93,7 @@ Future<bool> showConfirmationDialog({
   return result ?? false;
 }
 
-String getMessageFromErrorCode(String errorCode) {
-  switch (errorCode) {
-    case "ERROR_EMAIL_ALREADY_IN_USE":
-      return "Email already used. Go to login page.";
-    case "account-exists-with-different-credential":
-      return "Email already used. Go to login page.";
-    case "email-already-in-use":
-      return "Email already used. Go to login page.";
-    case "ERROR_WRONG_PASSWORD":
-    case "wrong-password":
-      return "Wrong Password ";
-    case "ERROR_USER_NOT_FOUND":
-      return "No user found with this email.";
-    case "user-not-found":
-      return "No user found with this email.";
-    case "ERROR_USER_DISABLED":
-      return "User disabled.";
-    case "user-disabled":
-      return "User disabled.";
-    case "ERROR_TOO_MANY_REQUESTS":
-      return "Too many requests to log/register into this account.";
-    case "operation-not-allowed":
-      return "Too many requests to log/register into this account.";
-    case "ERROR_OPERATION_NOT_ALLOWED":
-      return "Too many requests to log/register into this account.";
-    case "ERROR_INVALID_EMAIL":
-      return "Email address is invalid.";
-    case "invalid-email":
-      return "Email address is invalid.";
-    default:
-      return "Login/Register failed. Please try again. ($errorCode)";
-  }
-}
-
-bool loginVaildation(String email, String password) {
+bool loginValidation(String email, String password) {
   removeToastQueues();
   if (email.isEmpty && password.isEmpty) {
     showMessage("Both Fields are empty", isTop: false);
@@ -143,37 +109,64 @@ bool loginVaildation(String email, String password) {
   }
 }
 
-bool signUpVaildation(String email, String password, String confirmPass,
+bool signUpValidation(String email, String password, String confirmPass,
     String name, String phone, String address) {
   removeToastQueues();
+
+  // Checks if phone is all digits but can include + though it is not required
+  RegExp phoneRegex = RegExp(r'^[0-9+]*$');
+
   if (email.isEmpty &&
       password.isEmpty &&
+      confirmPass.isEmpty &&
       name.isEmpty &&
       phone.isEmpty &&
       address.isEmpty) {
     showMessage("All Fields are empty", isTop: false);
     return false;
-  } else if (name.isEmpty) {
+  }
+
+  if (name.isEmpty) {
     showMessage("Name is Empty", isTop: false);
     return false;
-  } else if (email.isEmpty) {
+  }
+
+  if (email.isEmpty) {
     showMessage("Email is Empty", isTop: false);
     return false;
-  } else if (phone.isEmpty) {
+  }
+
+  if (phone.isEmpty) {
     showMessage("Phone is Empty", isTop: false);
     return false;
-  } else if (password.isEmpty) {
+  }
+
+  if (password.isEmpty) {
     showMessage("Password is Empty", isTop: false);
     return false;
-  } else if (address.isEmpty) {
+  }
+
+  if (address.isEmpty) {
     showMessage("Address is Empty", isTop: false);
     return false;
-  } else if (password != confirmPass) {
+  }
+
+  if (password != confirmPass) {
     showMessage("Passwords are not the same", isTop: false);
     return false;
-  } else {
-    return true;
   }
+
+  if (!phoneRegex.hasMatch(phone) || phone.length < 10) {
+    showMessage("Phone number is not valid", isTop: false);
+    return false;
+  }
+
+  if (address.length < 10) {
+    showMessage("Address is too short", isTop: false);
+    return false;
+  }
+
+  return true;
 }
 
 bool editProfileValidation(
@@ -197,4 +190,8 @@ bool editProfileValidation(
   }
 
   return true;
+}
+
+String extractErrorMessage(String error) {
+  return error.toString().split("Firebase:")[1].split("(")[0].trim();
 }
