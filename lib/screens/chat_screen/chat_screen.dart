@@ -24,7 +24,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     openAI = OpenAI.instance.build(
-        token: const String.fromEnvironment('OPENAI_API_KEY', defaultValue: "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"),
+        token: "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",
         baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 5)));
     super.initState();
   }
