@@ -82,7 +82,7 @@ class _LoginState extends State<Login> {
                 onPressed: () async {
                   if (isWaiting) {
                     removeToastQueues();
-                    showMessage("Please wait for 30 seconds", isTop: false);
+                    showMessage("Too many attempts. Please wait for 30 seconds", isTop: false);
                     return;
                   }
 
@@ -98,8 +98,8 @@ class _LoginState extends State<Login> {
                     return;
                   }
 
-                  bool isVaildated = loginVaildation(email.text, password.text);
-                  if (!isVaildated) return;
+                  bool isValidated = loginValidation(email.text, password.text);
+                  if (!isValidated) return;
 
                   bool isLogined = await FirebaseAuthHelper.instance
                       .login(email.text, password.text, context);
