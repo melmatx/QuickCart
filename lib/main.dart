@@ -24,13 +24,11 @@ void main() async {
     statusBarBrightness: Brightness.dark,
     statusBarIconBrightness: Brightness.dark,
   ));
-
+  
   WidgetsFlutterBinding.ensureInitialized();
 
   // Get Stripe publishable key
-  Stripe.publishableKey = const String.fromEnvironment('STRIPE_PUBLISHABLE_KEY',
-      defaultValue:
-          "pk_test_51MWx8OAVMyklfe3CsjEzA1CiiY0XBTlHYbZ8jQlGtVFIwQi4aNeGv8J1HUw4rgSavMTLzTwgn0XRlwoTVRFXyu2h00mRUeWmAf");
+  Stripe.publishableKey = const String.fromEnvironment('STRIPE_PUBLISHABLE_KEY');
 
   // Initialize Firebase
   await Firebase.initializeApp(
@@ -66,7 +64,7 @@ class MyApp extends StatelessWidget {
             }
 
             if (snapshot.hasData && (snapshot.data!.emailVerified)) {
-              return const CustomBottomBar();
+                return const CustomBottomBar();
             }
 
             return const Welcome();
