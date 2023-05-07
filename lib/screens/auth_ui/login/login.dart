@@ -80,6 +80,8 @@ class _LoginState extends State<Login> {
               PrimaryButton(
                 title: "Login",
                 onPressed: () async {
+                  FocusScope.of(context).unfocus();
+                  
                   if (isWaiting) {
                     removeToastQueues();
                     showMessage("Too many attempts. Please wait for 30 seconds", isTop: false);

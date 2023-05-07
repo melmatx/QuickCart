@@ -149,6 +149,8 @@ class _SignUpState extends State<SignUp> {
               PrimaryButton(
                 title: "Create an account",
                 onPressed: () async {
+                  FocusScope.of(context).unfocus();
+                  
                   bool isValidated = signUpValidation(email.text, password.text,
                       confirmPass.text, name.text, phone.text, address.text);
                   if (isValidated) {
