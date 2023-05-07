@@ -203,7 +203,7 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
               ),
               ListView.builder(
                   shrinkWrap: true,
-                  padding: const EdgeInsets.symmetric(vertical: 7.0),
+                  padding: const EdgeInsets.only(top: 7.0, bottom: 6.0),
                   itemCount: appProvider.getCartProductList.length,
                   itemBuilder: (ctx, index) {
                     ProductModel productModel =
