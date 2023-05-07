@@ -28,7 +28,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Get Stripe publishable key
-  Stripe.publishableKey = const String.fromEnvironment('STRIPE_PUBLISHABE_KEY');
+  Stripe.publishableKey = const String.fromEnvironment('STRIPE_PUBLISHABLE_KEY');
 
   // Initialize Firebase
   await Firebase.initializeApp(
