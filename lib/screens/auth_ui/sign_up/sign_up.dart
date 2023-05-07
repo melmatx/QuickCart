@@ -2,8 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:quickcart/constants/routes.dart';
-import 'package:quickcart/screens/custom_bottom_bar/custom_bottom_bar.dart';
 import 'package:quickcart/widgets/primary_button/primary_button.dart';
 import 'package:quickcart/widgets/top_titles/top_titles.dart';
 
@@ -151,20 +149,16 @@ class _SignUpState extends State<SignUp> {
               PrimaryButton(
                 title: "Create an account",
                 onPressed: () async {
-                  bool isVaildated = signUpVaildation(email.text, password.text,
+                  bool isValidated = signUpValidation(email.text, password.text,
                       confirmPass.text, name.text, phone.text, address.text);
-                  if (isVaildated) {
-                    bool isLogined = await FirebaseAuthHelper.instance.signUp(
+                  if (isValidated) {
+                    await FirebaseAuthHelper.instance.signUp(
                         name.text,
                         email.text,
                         password.text,
                         phone.text,
                         address.text,
                         context);
-                    if (isLogined) {
-                      Routes.instance.pushAndRemoveUntil(
-                          widget: const CustomBottomBar(), context: context);
-                    }
                   }
                 },
               ),

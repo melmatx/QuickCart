@@ -63,8 +63,8 @@ class MyApp extends StatelessWidget {
               return const OnBoarding();
             }
 
-            if (snapshot.hasData) {
-              return const CustomBottomBar();
+            if (snapshot.hasData && (snapshot.data!.emailVerified)) {
+                return const CustomBottomBar();
             }
 
             return const Welcome();
