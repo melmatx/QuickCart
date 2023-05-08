@@ -39,6 +39,7 @@ class FirebaseAuthHelper {
         showMessage(
             "Your email address has not been verified. Please check your inbox.",
             isTop: false);
+        signOut();
       }
       return false;
     } on FirebaseAuthException catch (error) {
@@ -75,8 +76,11 @@ class FirebaseAuthHelper {
             .set(userModel.toJson());
 
         Navigator.of(context, rootNavigator: true).pop();
-        showMessage("Check your email for verification", isTop: false);
-        Routes.instance.pushAndRemoveUntil(widget: const Welcome(), context: context);
+        showMessage(
+            "Email verification sent. Please verify your email first before logging in.",
+            isTop: false);
+        Routes.instance.pushAndRemoveUntil(
+            widget: const Welcome(), context: context, routeNav: true);
         Routes.instance.push(widget: const Login(), context: context);
       }
     } on FirebaseAuthException catch (error) {
