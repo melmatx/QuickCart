@@ -151,11 +151,6 @@ bool signUpValidation(String email, String password, String confirmPass,
     return false;
   }
 
-  if (password != confirmPass) {
-    showMessage("Passwords are not the same", isTop: false);
-    return false;
-  }
-
   if (!phoneRegex.hasMatch(phone) || phone.length < 10) {
     showMessage("Phone number is not valid", isTop: false);
     return false;
@@ -163,6 +158,11 @@ bool signUpValidation(String email, String password, String confirmPass,
 
   if (address.length < 10) {
     showMessage("Address is too short", isTop: false);
+    return false;
+  }
+
+  if (password != confirmPass) {
+    showMessage("Passwords are not the same", isTop: false);
     return false;
   }
 
