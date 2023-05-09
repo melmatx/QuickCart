@@ -40,12 +40,15 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController address = TextEditingController();
 
   void validateInputs() {
-    _isValid.value = editProfileValidation(
-        name: name.text,
-        email: email.text,
-        phone: phone.text,
-        address: address.text,
-        image: image);
+    if (email.text.isEmpty &&
+        name.text.isEmpty &&
+        phone.text.isEmpty &&
+        address.text.isEmpty &&
+        image == null) {
+      _isValid.value = false;
+    } else {
+      _isValid.value = true;
+    }
   }
 
   @override
@@ -175,22 +178,25 @@ class _EditProfileState extends State<EditProfile> {
                 title: "Update",
                 onPressed: isValid
                     ? () async {
-                        UserModel userModel = appProvider.getUserInformation
-                            .copyWith(
-                                name: name.text.isEmpty
-                                    ? appProvider.getUserInformation.name
-                                    : name.text,
-                                email: email.text.isEmpty
-                                    ? appProvider.getUserInformation.email
-                                    : email.text,
-                                phone: phone.text.isEmpty
-                                    ? appProvider.getUserInformation.phone
-                                    : phone.text,
-                                address: address.text.isEmpty
-                                    ? appProvider.getUserInformation.address
-                                    : address.text);
-                        appProvider.updateUserInfoFirebase(
-                            context, userModel, image);
+                        bool isValidated = editProfileValidation(
+                            name.text, email.text, phone.text, address.text);
+                        if (isValidated) {
+                          UserModel userModel = appProvider.getUserInformation
+                              .copyWith(
+                                  name:
+                                      name
+                                              .text.isEmpty
+                                          ? appProvider.getUserInformation.name
+                                          : name.text,
+                                  phone: phone.text.isEmpty
+                                      ? appProvider.getUserInformation.phone
+                                      : phone.text,
+                                  address: address.text.isEmpty
+                                      ? appProvider.getUserInformation.address
+                                      : address.text);
+                          appProvider.updateUserInfoFirebase(
+                              context, userModel, image, email.text);
+                        }
                       }
                     : null,
               );
@@ -207,7 +213,8 @@ class _EditProfileState extends State<EditProfile> {
                     bool result = await showConfirmationDialog(
                       context: context,
                       title: 'Remove Profile Picture',
-                      content: "Are you you sure you want to remove it? You can't undo this action.",
+                      content:
+                          "Are you you sure you want to remove it? You can't undo this action.",
                     );
 
                     if (result) {
