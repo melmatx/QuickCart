@@ -85,7 +85,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 ],
               ),
               Text(
-                "₱${widget.singleProduct.price}",
+                "₱${widget.singleProduct.price % 1 == 0 ? widget.singleProduct.price.round().toString() : widget.singleProduct.price.toStringAsFixed(2)}",
                 style: const TextStyle(fontSize: 16),
               ),
               const SizedBox(
