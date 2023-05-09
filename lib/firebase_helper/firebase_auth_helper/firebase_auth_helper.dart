@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -23,24 +25,27 @@ class FirebaseAuthHelper {
           email: email, password: password);
       User? user = userCredential.user;
 
-      if (user != null && user.emailVerified) {
+      if (user == null) {
+        return false;
+      }
+
+      if (user.emailVerified) {
         Navigator.of(context, rootNavigator: true).pop();
         return true;
-      } else if (user != null && !user.emailVerified) {
+      } else if (!user.emailVerified) {
         Navigator.of(context, rootNavigator: true).pop();
 
-        DateTime lastSignInTime =
-            user.metadata.lastSignInTime ?? user.metadata.creationTime!;
-        if (lastSignInTime
-            .add(const Duration(minutes: 3))
-            .isBefore(DateTime.now())) {
+        try {
           await user.sendEmailVerification();
+          showMessage(
+              "Your email address has not been verified. Please check your inbox.",
+              isTop: false);
+        } catch (error) {
+          debugPrint(error.toString());
+          showMessage(extractErrorMessage(error.toString()), isTop: false);
         }
-        showMessage(
-            "Your email address has not been verified. Please check your inbox.",
-            isTop: false);
-        signOut();
       }
+
       return false;
     } on FirebaseAuthException catch (error) {
       Navigator.of(context, rootNavigator: true).pop();
@@ -115,13 +120,12 @@ class FirebaseAuthHelper {
 
   Future<bool> changeEmail(String email, BuildContext context) async {
     try {
-      showLoaderDialog(context);
-      _auth.currentUser!.updateEmail(email);
-      Navigator.of(context).pop();
+      await _auth.currentUser!.updateEmail(email);
 
       return true;
     } on FirebaseAuthException catch (error) {
       Navigator.of(context).pop();
+      Navigator.of(context, rootNavigator: true).pop();
       showMessage(extractErrorMessage(error.message!), isTop: false);
       debugPrint(error.toString());
       return false;
