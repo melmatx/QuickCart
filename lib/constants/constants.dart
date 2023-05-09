@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quickcart/main.dart';
@@ -170,22 +168,16 @@ bool signUpValidation(String email, String password, String confirmPass,
 }
 
 bool editProfileValidation(
-    {String? email,
-    String? password,
-    String? name,
-    String? phone,
-    String? address,
-    File? image}) {
-  bool isEmailEmpty = email == null || email.isEmpty;
-  bool isNameEmpty = name == null || name.isEmpty;
-  bool isPhoneEmpty = phone == null || phone.isEmpty;
-  bool isAddressEmpty = address == null || address.isEmpty;
+    String name, String email, String phone, String address) {
+  RegExp phoneRegex = RegExp(r'^[0-9+]*$');
 
-  if (isEmailEmpty &&
-      isNameEmpty &&
-      isPhoneEmpty &&
-      isAddressEmpty &&
-      image == null) {
+  if (phone.isNotEmpty && (!phoneRegex.hasMatch(phone) || phone.length < 10)) {
+    showMessage("Phone number is not valid");
+    return false;
+  }
+
+  if (address.isNotEmpty && address.length < 10) {
+    showMessage("Address is too short");
     return false;
   }
 
