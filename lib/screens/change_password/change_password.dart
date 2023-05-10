@@ -13,9 +13,33 @@ class ChangePassword extends StatefulWidget {
 }
 
 class _ChangePasswordState extends State<ChangePassword> {
+  TextEditingController newPassword = TextEditingController();
+  TextEditingController confirmPassword = TextEditingController();
+  final ValueNotifier<bool> _isValid = ValueNotifier<bool>(false);
   bool isShowPassword = true;
-  TextEditingController newpassword = TextEditingController();
-  TextEditingController confirmpassword = TextEditingController();
+
+  void validateInputs() {
+    if (newPassword.text.isEmpty && confirmPassword.text.isEmpty) {
+      _isValid.value = false;
+    } else {
+      _isValid.value = true;
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    newPassword.addListener(validateInputs);
+    confirmPassword.addListener(validateInputs);
+  }
+
+  @override
+  void dispose() {
+    newPassword.dispose();
+    confirmPassword.dispose();
+    _isValid.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +60,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             height: 20.0,
           ),
           TextFormField(
-            controller: newpassword,
+            controller: newPassword,
             obscureText: isShowPassword,
             decoration: InputDecoration(
               hintText: "New Password",
@@ -65,7 +89,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             height: 24.0,
           ),
           TextFormField(
-            controller: confirmpassword,
+            controller: confirmPassword,
             obscureText: isShowPassword,
             decoration: InputDecoration(
               hintText: "Confirm Password",
@@ -93,21 +117,23 @@ class _ChangePasswordState extends State<ChangePassword> {
           const SizedBox(
             height: 36.0,
           ),
-          PrimaryButton(
-            title: "Update",
-            onPressed: () async {
-              if (newpassword.text.isEmpty) {
-                showMessage("New Password is empty");
-              } else if (confirmpassword.text.isEmpty) {
-                showMessage("Confirm Password is empty");
-              } else if (confirmpassword.text == newpassword.text) {
-                FirebaseAuthHelper.instance
-                    .changePassword(newpassword.text, context);
-              } else {
-                showMessage("Confrim Password is not match");
-              }
-            },
-          ),
+          ValueListenableBuilder<bool>(
+              valueListenable: _isValid,
+              builder: (context, isValid, _) {
+                return PrimaryButton(
+                  title: "Update",
+                  onPressed: isValid
+                      ? () async {
+                          if (confirmPassword.text == newPassword.text) {
+                            FirebaseAuthHelper.instance
+                                .changePassword(newPassword.text, context);
+                          } else {
+                            showMessage("Confirm Password is not match");
+                          }
+                        }
+                      : null,
+                );
+              }),
         ],
       ),
     );
