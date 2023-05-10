@@ -43,7 +43,7 @@ class Welcome extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 30.0,
+                height: 25.0,
               ),
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.center,
