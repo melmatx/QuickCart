@@ -50,10 +50,15 @@ class _ChangePasswordState extends State<ChangePassword> {
                     });
                   },
                   padding: EdgeInsets.zero,
-                  child: const Icon(
-                    Icons.visibility,
-                    color: Colors.grey,
-                  )),
+                  child: isShowPassword
+                      ? const Icon(
+                          Icons.visibility,
+                          color: Colors.grey,
+                        )
+                      : const Icon(
+                          Icons.visibility_off,
+                          color: Colors.grey,
+                        )),
             ),
           ),
           const SizedBox(
@@ -62,12 +67,27 @@ class _ChangePasswordState extends State<ChangePassword> {
           TextFormField(
             controller: confirmpassword,
             obscureText: isShowPassword,
-            decoration: const InputDecoration(
-              hintText: "Confrim Password",
-              prefixIcon: Icon(
+            decoration: InputDecoration(
+              hintText: "Confirm Password",
+              prefixIcon: const Icon(
                 Icons.password_sharp,
               ),
-             
+              suffixIcon: CupertinoButton(
+                  onPressed: () {
+                    setState(() {
+                      isShowPassword = !isShowPassword;
+                    });
+                  },
+                  padding: EdgeInsets.zero,
+                  child: isShowPassword
+                      ? const Icon(
+                          Icons.visibility,
+                          color: Colors.grey,
+                        )
+                      : const Icon(
+                          Icons.visibility_off,
+                          color: Colors.grey,
+                        )),
             ),
           ),
           const SizedBox(
