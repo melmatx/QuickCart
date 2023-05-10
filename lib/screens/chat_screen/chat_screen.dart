@@ -24,7 +24,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     openAI = OpenAI.instance.build(
-        token: const String.fromEnvironment('OPENAI_API_KEY', defaultValue: "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"),
+        token: const String.fromEnvironment('OPENAI_API_KEY', defaultValue: "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"),
         baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 5)));
     super.initState();
   }
@@ -163,7 +163,7 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
               if (_isTyping) const ThreeDots(),
               const SizedBox(
-                height: 7.0,
+                height: 15.0,
               ),
               Container(
                 decoration: const BoxDecoration(
