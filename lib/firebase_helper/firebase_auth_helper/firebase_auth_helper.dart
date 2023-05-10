@@ -33,14 +33,14 @@ class FirebaseAuthHelper {
         Navigator.of(context, rootNavigator: true).pop();
         return true;
       } else if (!user.emailVerified) {
-        Navigator.of(context, rootNavigator: true).pop();
-
         try {
           await user.sendEmailVerification();
+          Navigator.of(context).pop();
           showMessage(
               "Your email address has not been verified. Please check your inbox.",
               isTop: false);
         } catch (error) {
+          Navigator.of(context).pop();
           debugPrint(error.toString());
           showMessage(extractErrorMessage(error.toString()), isTop: false);
         }
@@ -98,7 +98,7 @@ class FirebaseAuthHelper {
   Future<bool> changePassword(String password, BuildContext context) async {
     try {
       showLoaderDialog(context);
-      _auth.currentUser!.updatePassword(password);
+      await _auth.currentUser!.updatePassword(password);
       // UserCredential userCredential = await _auth
       //     .createUserWithEmailAndPassword(email: email, password: password);
       // UserModel userModel = UserModel(
@@ -111,7 +111,7 @@ class FirebaseAuthHelper {
 
       return true;
     } on FirebaseAuthException catch (error) {
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
       showMessage(extractErrorMessage(error.message!), isTop: false);
       debugPrint(error.toString());
       return false;
@@ -125,7 +125,6 @@ class FirebaseAuthHelper {
       return true;
     } on FirebaseAuthException catch (error) {
       Navigator.of(context).pop();
-      Navigator.of(context, rootNavigator: true).pop();
       showMessage(extractErrorMessage(error.message!), isTop: false);
       debugPrint(error.toString());
       return false;
