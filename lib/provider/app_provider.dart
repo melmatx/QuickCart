@@ -133,10 +133,11 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void updateUserInfoFirebase(BuildContext context, UserModel userModel,
-      File? file, String email) async {
+  void updateUserInfoFirebase(
+      BuildContext context, UserModel userModel, File? file) async {
     showLoaderDialog(context);
 
+    String oldEmail = _userModel!.email;
     _userModel = userModel;
 
     if (file != null) {
@@ -144,16 +145,14 @@ class AppProvider with ChangeNotifier {
           await FirebaseStorageHelper.instance.uploadUserImage(file);
       _userModel = _userModel!.copyWith(image: imageUrl);
     }
-    
-    if (_userModel!.email != email) {
-      bool isEmailChanged =
-          await FirebaseAuthHelper.instance.changeEmail(email, context);
+
+    if (userModel.email != oldEmail) {
+      bool isEmailChanged = await FirebaseAuthHelper.instance
+          .changeEmail(userModel.email, context);
 
       if (!isEmailChanged) {
         debugPrint("Error while updating email.");
         return;
-      } else {
-        _userModel = _userModel!.copyWith(email: email);
       }
     }
 

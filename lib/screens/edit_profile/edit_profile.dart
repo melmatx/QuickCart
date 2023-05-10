@@ -188,6 +188,11 @@ class _EditProfileState extends State<EditProfile> {
                                               .text.isEmpty
                                           ? appProvider.getUserInformation.name
                                           : name.text,
+                                  email:
+                                      email
+                                              .text.isEmpty
+                                          ? appProvider.getUserInformation.email
+                                          : email.text,
                                   phone: phone.text.isEmpty
                                       ? appProvider.getUserInformation.phone
                                       : phone.text,
@@ -195,7 +200,7 @@ class _EditProfileState extends State<EditProfile> {
                                       ? appProvider.getUserInformation.address
                                       : address.text);
                           appProvider.updateUserInfoFirebase(
-                              context, userModel, image, email.text);
+                              context, userModel, image);
                         }
                       }
                     : null,
