@@ -77,7 +77,7 @@ class Welcome extends StatelessWidget {
                 },
               ),
               const SizedBox(
-                height: 25.0,
+                height: 20.0,
               ),
               PrimaryButton(
                 title: "Sign Up",
