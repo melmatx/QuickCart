@@ -24,7 +24,9 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     openAI = OpenAI.instance.build(
-        token: const String.fromEnvironment('OPENAI_API_KEY', defaultValue: "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"),
+        token: const String.fromEnvironment('OPENAI_API_KEY',
+            defaultValue:
+                "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"),
         baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 5)));
     super.initState();
   }
@@ -43,7 +45,14 @@ class _ChatScreenState extends State<ChatScreen> {
 
     _controller.clear();
 
+    final systemPrompt = Map.of({
+      "role": "system",
+      "content":
+          "You are the customer service of an e-commerce app named QuickCart. You are chatting with a customer who is looking for a product and has questions about the app. You are supposed to help the customer find the product and help with their problems."
+    });
+
     final request = ChatCompleteText(messages: [
+      systemPrompt,
       Map.of({"role": "user", "content": message.text})
     ], maxToken: 200, model: ChatModel.gptTurbo);
 
