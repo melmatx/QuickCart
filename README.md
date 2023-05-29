@@ -1,25 +1,33 @@
 # QuickCart
 
-Simple E-commerce app made with ([Flutter](https://flutter.dev/)), using ([Firebase](https://firebase.google.com/)) and ([Stripe](https://stripe.com/)) as Backend.
+Simple E-commerce app made with [Flutter](https://flutter.dev/), using [Firebase](https://firebase.google.com/) and [Stripe](https://stripe.com/) as Backend.
 
-([Documentation Link](https://docs.google.com/document/d/1tlAhzX29zE6Ay9fk3LwANpkGe88aNFfr/edit?usp=share_link&ouid=101654319567756709075&rtpof=true&sd=true))
+## Try the app now
 
-## How to run
+[QuickCart for Web](https://quickcart-web.vercel.app/) (Recommended)
 
-Make sure to install flutter first. ([Install flutter](https://docs.flutter.dev/get-started/install))
+[QuickCart for Android](https://github.com/melmatx/QuickCart/blob/master/app-release.apk)
 
-1. `git clone https://github.com/melmatx/quickcart.git`
+## Getting Started
 
-To download the files to your computer.
+1. Make sure to install Flutter first:
 
-2. `cd quickcart`
+[Download Flutter here](https://docs.flutter.dev/get-started/install)
 
-To go to the directory of this project.
+2. Clone/download the files to your computer:
 
-3. `flutter pub get`
+`git clone https://github.com/melmatx/quickcart.git`
 
-To get all dependencies for this project.
+3. Go to the directory of this project on your local computer:
 
-4. `flutter run`
+`cd quickcart`
 
-To run the flutter app. Make sure you have your Android or iOS Simulator open.
+4. Get all dependencies for this project:
+
+`flutter pub get`
+
+5. Run the flutter app. Make sure you have your Android or iOS Simulator open:
+
+`flutter run`
+
+[Full Documentation](https://docs.google.com/document/d/1tlAhzX29zE6Ay9fk3LwANpkGe88aNFfr/edit?usp=share_link&ouid=101654319567756709075&rtpof=true&sd=true)
