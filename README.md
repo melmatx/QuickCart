@@ -29,5 +29,3 @@ Simple E-commerce app made with [Flutter](https://flutter.dev/), using [Firebase
 5. Run the flutter app. Make sure you have your Android or iOS Simulator open:
 
 `flutter run`
-
-[Full Documentation](https://docs.google.com/document/d/1tlAhzX29zE6Ay9fk3LwANpkGe88aNFfr/edit?usp=share_link&ouid=101654319567756709075&rtpof=true&sd=true)
