@@ -1,6 +1,8 @@
 # QuickCart
 
-Simple e-commerce app made with Flutter and integrated with Firebase and Stripe.
+Simple E-commerce app made with ([Flutter](https://flutter.dev/)), using ([Firebase](https://firebase.google.com/)) and ([Stripe](https://stripe.com/)) as Backend.
+
+([Documentation Link](https://docs.google.com/document/d/1tlAhzX29zE6Ay9fk3LwANpkGe88aNFfr/edit?usp=share_link&ouid=101654319567756709075&rtpof=true&sd=true))
 
 ## How to run
 
