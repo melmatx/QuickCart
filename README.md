@@ -6,7 +6,7 @@ Simple E-commerce app made with [Flutter](https://flutter.dev/), using [Firebase
 
 [QuickCart for Web](https://quickcart-web.vercel.app/) (Recommended)
 
-[QuickCart for Android](https://github.com/melmatx/QuickCart/blob/master/app-release.apk)
+[QuickCart for Android](https://drive.google.com/uc?export=download&id=1VDcKxiL5p-qeHz6Ff08ghHJS2WjJCGAD)
 
 ## Getting Started
 
