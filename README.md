@@ -2,7 +2,7 @@
 
 Simple E-commerce web app made with [Flutter](https://flutter.dev/), using [Firebase](https://firebase.google.com/) and [Stripe](https://stripe.com/) as Backend.
 
-<img width="312" alt="Screenshot 2023-05-29 at 7 24 53 PM" src="https://github.com/melmatx/QuickCart/assets/87235413/71d75c69-c89b-4709-bf18-85cbc3a09ae5">
+<img width="200" alt="Screenshot 2023-05-29 at 7 24 53 PM" src="https://github.com/melmatx/QuickCart/assets/87235413/71d75c69-c89b-4709-bf18-85cbc3a09ae5">
 
 
 ## Try the app now
