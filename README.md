@@ -1,6 +1,6 @@
 # QuickCart
 
-Simple E-commerce app made with [Flutter](https://flutter.dev/), using [Firebase](https://firebase.google.com/) and [Stripe](https://stripe.com/) as Backend.
+Simple E-commerce web app made with [Flutter](https://flutter.dev/), using [Firebase](https://firebase.google.com/) and [Stripe](https://stripe.com/) as Backend.
 
 ## Try the app now
 
