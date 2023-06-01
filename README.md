@@ -49,7 +49,7 @@ Simple E-commerce web app made with [Flutter](https://flutter.dev/), using [Fire
 | name     | string  | category name             |
 
 5. Now, make another collection inside this document named **products**.
-6. Add a new document (for each products) with this fields:
+6. Add a new document (for each products) with these fields:
 
 - Document ID: Auto-ID
 
