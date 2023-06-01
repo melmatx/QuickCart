@@ -36,17 +36,17 @@ Simple E-commerce web app made with [Flutter](https://flutter.dev/), using [Fire
 ## To populate products in the app:
 
 1. Create a new project in Firebase.
-2. Connect the app to your project using the Flutter option.
+2. Connect the app to this project using the Flutter option in Firebase.
 3. Create a new collection named **categories** in your Firestore Database.
-4. Add a new document for each categories in this collection with these fields:
+4. Add a new document in this collection with these fields (for each categories):
 
 - Document ID: Auto-ID
 
 | Field    | Type    | Value                     |
 | -------- | ------- | ------------------------- |
 | id       | string  | any unique id             |
-| image    | string  | image link of the product |
-| name     | string  | product name              |
+| image    | string  | category image link (Ex: https://www.lg.com/ph/images/monitors/md07562694/D1.jpg) |
+| name     | string  | category name             |
 
 5. Now, make another collection inside this document named **products**.
 6. Add a new document for each products with this fields:
@@ -56,7 +56,7 @@ Simple E-commerce web app made with [Flutter](https://flutter.dev/), using [Fire
 | Field       | Type    | Value                     |
 | ----------- | ------- | ------------------------- |
 | id          | string  | any unique id             |
-| image       | string  | image link of the product |
+| image       | string  | product image link        |
 | name        | string  | product name              |
 | description | string  | product description       |
 | price       | number  | product price             |
