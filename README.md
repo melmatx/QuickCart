@@ -36,7 +36,7 @@ Simple E-commerce web app made with [Flutter](https://flutter.dev/), using [Fire
 ## To populate products in the app:
 
 1. Create a new project in Firebase.
-2. Connect the app to this project using the Flutter option in Firebase.
+2. Connect the app to the project using the Flutter option when adding an app.
 3. Create a new collection named **categories** in your Firestore Database.
 4. Add a new document in this collection with these fields (for each categories):
 
